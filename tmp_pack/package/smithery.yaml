@@ -1,0 +1,71 @@
+# Smithery configuration file: https://smithery.ai/docs/config#smitheryyaml
+# Configured for REMOTE deployment (server hosted on Render.com)
+
+# Project metadata for Smithery listing
+title: ClickUp MCP - Premium
+homepage: https://github.com/taazkareem/clickup-mcp-server
+repository: https://github.com/taazkareem/clickup-mcp-server.git
+icon: https://raw.githubusercontent.com/taazkareem/clickup-mcp-server/main/assets/icon.png
+
+# Remote server configuration - Smithery proxies to your Render-hosted server
+startCommand:
+  type: http
+  # URL of your Render-hosted MCP server
+  url: https://clickup-mcp.taazkareem.com/mcp
+
+  configSchema:
+    type: object
+    required:
+      - clickupMcpLicenseKey
+      - clickupApiKey
+      - clickupTeamId
+    properties:
+      clickupMcpLicenseKey:
+        type: string
+        title: License Key
+        description: Your ClickUp MCP License Key from Polar.sh. Required for premium features.
+        isSecret: true
+      clickupApiKey:
+        type: string
+        title: ClickUp API Key
+        description: Your ClickUp API key. Generated in ClickUp under Settings -> Apps.
+        isSecret: true
+      clickupTeamId:
+        type: string
+        title: ClickUp Team ID
+        description: Your ClickUp Team ID (Workspace ID). Found in the URL of your ClickUp workspace (e.g., https://app.clickup.com/1234567/...).
+        isSecret: false
+      clickupMcpSandboxSecret:
+        type: string
+        title: Sandbox Secret
+        description: Optional secret for sandbox mode testing.
+        isSecret: true
+      enabledTools:
+        type: string
+        title: Enabled Tools
+        description: Comma-separated list of tools to enable (e.g., create_task,get_task). Takes precedence over disabledTools.
+        isSecret: false
+      disabledTools:
+        type: string
+        title: Disabled Tools
+        description: Comma-separated list of tools to disable. Ignored if enabledTools is specified.
+        isSecret: false
+  # For remote deployments, headers map config to HTTP headers sent to your server
+  headersFunction: |-
+    (config) => {
+      const headers = {
+        'X-License-Key': config.clickupMcpLicenseKey || '',
+        'X-ClickUp-Key': config.clickupApiKey || '',
+        'X-ClickUp-Team-Id': config.clickupTeamId || ''
+      };
+      if (config.clickupMcpSandboxSecret) {
+        headers['X-Sandbox-Secret'] = config.clickupMcpSandboxSecret;
+      }
+      if (config.enabledTools) {
+        headers['X-Enabled-Tools'] = config.enabledTools;
+      }
+      if (config.disabledTools) {
+        headers['X-Disabled-Tools'] = config.disabledTools;
+      }
+      return headers;
+    }

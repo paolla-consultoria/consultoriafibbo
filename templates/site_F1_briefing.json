@@ -1,0 +1,22 @@
+{
+  "name": "F1 — Briefing / Kickoff",
+  "description": "Briefing Zero + LENTE + acessos + objetivo/4 fontes do sitemap.",
+  "status": "Backlog",
+  "priority": "high",
+  "custom_fields": {
+    "Service": "SIT",
+    "ReferenceID": "F1",
+    "Cadence": "one-time",
+    "Roles": ["IM","GP","SO"],
+    "EstimatedHours": 15,
+    "Gate": "porta-do-dono",
+    "AutomationFlag": false
+  },
+  "checklist": [
+    "Briefing zero document",
+    "Confirmar LENTE",
+    "Coletar acessos",
+    "Definir objetivo + 4 fontes do sitemap",
+    "Registrar aprovação (porta do dono)"
+  ]
+}

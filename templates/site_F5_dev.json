@@ -1,0 +1,23 @@
+{
+  "name": "F5 — Dev",
+  "description": "CMS + SEO técnico/schema + tracking (GA4/UTM/pixel) + redirects + SSL/host.",
+  "status": "Backlog",
+  "priority": "high",
+  "custom_fields": {
+    "Service": "SIT",
+    "ReferenceID": "F5",
+    "Cadence": "one-time",
+    "Roles": ["SEO","GT","AD","TI"],
+    "EstimatedHours": 16,
+    "Gate": "dependency",
+    "AutomationFlag": false
+  },
+  "checklist": [
+    "Configurar CMS",
+    "Implementar SEO técnico e schema",
+    "Configurar GA4 / UTM / Pixel",
+    "Adicionar redirects",
+    "Configurar SSL / hospedagem",
+    "Pre-flight checks para go-live"
+  ]
+}

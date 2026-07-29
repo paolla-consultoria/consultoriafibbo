@@ -1,0 +1,21 @@
+{
+  "name": "F7 — Pós / Desfecho",
+  "description": "Ativar Canais 4/7 · revisão trimestral · manutenção ou offboarding (só-site).",
+  "status": "Backlog",
+  "priority": "medium",
+  "custom_fields": {
+    "Service": "SIT",
+    "ReferenceID": "F7",
+    "Cadence": "one-time",
+    "Roles": ["CS","GP","SO"],
+    "EstimatedHours": 5,
+    "Gate": "archive",
+    "AutomationFlag": false
+  },
+  "checklist": [
+    "Ativar canais (4/7)",
+    "Revisão pós-lançamento (30 dias)",
+    "Agendar revisão trimestral",
+    "Arquivar projeto ou agendar manutenção/offboarding"
+  ]
+}

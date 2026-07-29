@@ -1,0 +1,21 @@
+{
+  "name": "F3 — Copy",
+  "description": "N versões por seção + Conselho (4 cadeiras) → avaliação por seção.",
+  "status": "Backlog",
+  "priority": "high",
+  "custom_fields": {
+    "Service": "SIT",
+    "ReferenceID": "F3",
+    "Cadence": "one-time",
+    "Roles": ["CP","SO"],
+    "EstimatedHours": 22,
+    "Gate": "porta-do-dono",
+    "AutomationFlag": false
+  },
+  "checklist": [
+    "Produzir versões de copy por seção",
+    "Rodar Conselho (4 avaliadores)",
+    "Consolidar feedback por seção",
+    "Aprovar copy por página"
+  ]
+}

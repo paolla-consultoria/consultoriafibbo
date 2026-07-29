@@ -1,0 +1,21 @@
+{
+  "name": "Extração e Publicação de Relatório (MG3)",
+  "description": "Extrair dados, gerar relatório mensal/pulse e publicar no repositório/pasta do cliente.",
+  "status": "Backlog",
+  "priority": "high",
+  "custom_fields": {
+    "Service": "MGMT",
+    "ReferenceID": "MG3",
+    "Cadence": "monthly",
+    "Roles": ["AD","CS"],
+    "EstimatedHours": 1,
+    "Gate": "none",
+    "AutomationFlag": false
+  },
+  "checklist": [
+    "Executar extração de dados",
+    "Gerar arquivo do relatório",
+    "Publicar na pasta do cliente",
+    "Notificar grupo do cliente"
+  ]
+}

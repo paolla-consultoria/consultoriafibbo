@@ -1,0 +1,21 @@
+{
+  "name": "F6 — Go-live",
+  "description": "PORTEIRA (10 blocos · checklist) + autorização registrada.",
+  "status": "Backlog",
+  "priority": "high",
+  "custom_fields": {
+    "Service": "SIT",
+    "ReferenceID": "F6",
+    "Cadence": "one-time",
+    "Roles": ["FE","GT","SO"],
+    "EstimatedHours": 7,
+    "Gate": "porta-do-dono",
+    "AutomationFlag": false
+  },
+  "checklist": [
+    "Executar checklist 10 blocos",
+    "Verificar tracking e redirects",
+    "Confirmar backups",
+    "Registrar autorização do dono"
+  ]
+}

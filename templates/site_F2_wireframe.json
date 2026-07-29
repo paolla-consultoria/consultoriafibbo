@@ -1,0 +1,22 @@
+{
+  "name": "F2 — Wireframe / Arquitetura",
+  "description": "Sitemap + IA ≤3 cliques · página-chave = 3 wireframes + gate macro.",
+  "status": "Backlog",
+  "priority": "high",
+  "custom_fields": {
+    "Service": "SIT",
+    "ReferenceID": "F2",
+    "Cadence": "one-time",
+    "Roles": ["SEO","CP","FE","SO"],
+    "EstimatedHours": 14,
+    "Gate": "porta-do-dono",
+    "AutomationFlag": false
+  },
+  "checklist": [
+    "Produzir sitemap",
+    "Criar 3 wireframes chave",
+    "Validar IA (≤3 cliques)",
+    "Revisão macro (gate)",
+    "Registrar aprovação (porta do dono)"
+  ]
+}

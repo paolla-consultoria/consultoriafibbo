@@ -1,0 +1,20 @@
+{
+  "name": "Follow-up com Cliente (MG2)",
+  "description": "Follow-up de aprovações e pendências com o cliente (contato no grupo / e-mail).",
+  "status": "Backlog",
+  "priority": "high",
+  "custom_fields": {
+    "Service": "MGMT",
+    "ReferenceID": "MG2",
+    "Cadence": "weekly",
+    "Roles": ["CS","GP"],
+    "EstimatedHours": 0.5,
+    "Gate": "none",
+    "AutomationFlag": false
+  },
+  "checklist": [
+    "Verificar aprovações pendentes",
+    "Atualizar cliente sobre bloqueios",
+    "Agendar próxima call se necessário"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "name": "F4 — Layout / Design",
+  "description": "Identidade da LENTE · protótipo · QA de craft.",
+  "status": "Backlog",
+  "priority": "high",
+  "custom_fields": {
+    "Service": "SIT",
+    "ReferenceID": "F4",
+    "Cadence": "one-time",
+    "Roles": ["FE","SO"],
+    "EstimatedHours": 18,
+    "Gate": "porta-do-dono",
+    "AutomationFlag": false
+  },
+  "checklist": [
+    "Definir identidade da LENTE",
+    "Produzir protótipo interativo",
+    "QA de craft",
+    "Aprovação do layout pelo dono"
+  ]
+}

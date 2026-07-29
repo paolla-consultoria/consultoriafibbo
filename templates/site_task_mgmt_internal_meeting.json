@@ -1,0 +1,20 @@
+{
+  "name": "Reunião Interna de Projeto (MG1)",
+  "description": "Reunião de alinhamento interna: status, pendências, decisões para o projeto (sem cliente).",
+  "status": "Backlog",
+  "priority": "medium",
+  "custom_fields": {
+    "Service": "MGMT",
+    "ReferenceID": "MG1",
+    "Cadence": "weekly",
+    "Roles": ["GP","CS","FE","CP"],
+    "EstimatedHours": 1,
+    "Gate": "none",
+    "AutomationFlag": false
+  },
+  "checklist": [
+    "Agenda preparada",
+    "Minutes gravadas e salvas",
+    "Atribuir action items"
+  ]
+}

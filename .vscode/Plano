@@ -1,0 +1,236 @@
+# Arquitetura ClickUp Fibbo — Ciclo de Vida do Cliente
+### Plano para aprovação · Fabrício Coimbra (Sponsor)
+
+> **O que este documento é:** o plano da nova estrutura de operação da Fibbo no ClickUp, do fechamento do contrato à conclusão do projeto. As seções 0 a 7 são o que precisa da sua aprovação. Os anexos guardam o detalhamento técnico e o histórico de decisões, para quem for executar.
+> **O que está fora por enquanto:** o catálogo de blocos de entrega e os tempos estimados (próximo bloco de trabalho) e a fase Comercial/Lead.
+
+---
+
+## 0. Sumário executivo — o que está sendo aprovado
+
+- **A raiz do problema não é o ClickUp, é o eixo.** Hoje a operação é organizada por *departamento* e por *tipo de trabalho*. Isso gera gargalo, sistemas paralelos e perda de visibilidade gerencial (documentado na auditoria AS-IS).
+- **A mudança:** reorganizar tudo por **cliente/projeto**. Cada cliente é uma pasta; cada entrega é um bloco de tarefas replicável dentro dela; a operação interna da Fibbo fica separada do que é entrega ao cliente.
+- **Como vamos entrar:** construir um **Space novo, do zero**, e rodar **só clientes novos** nele — sem migrar nada agora. Ambiente limpo, isolado do legado, para validar o modelo (MVP) antes de escalar.
+- **O que preciso de você (resumo):** sponsorship visível, aprovação deste desenho, a decisão de **subir o plano do ClickUp para Business** (pré-condição técnica, tem custo), e a definição de **data de corte + critério de validação do MVP** (§6 e §7).
+
+---
+
+## 1. Por que mudar (o problema em 3 linhas)
+
+A auditoria do ClickUp atual mostrou: tarefas atribuídas em massa sem datas (gargalo concentrado), **dois sistemas de tickets paralelos com lógica conflitante**, disciplina de dados se deteriorando, e um campo "Data de Go-Live" existindo sem processo por trás. O padrão comum é o mesmo: a estrutura organiza o trabalho pelo eixo errado, e o time acaba usando o ClickUp só para "pegar tarefa", não para gerir.
+
+---
+
+## 2. A regra de organização (o que decide onde cada coisa vive)
+
+Toda dúvida de "onde isso mora?" se resolve com uma pergunta: **isto é um cliente, um tipo de entrega, ou operação interna da Fibbo?**
+
+| Se é… | Vira… |
+|---|---|
+| Um **cliente** | Uma **pasta** |
+| Um **tipo de entrega** (site, LP, social, relatório) | Um **bloco de tarefas replicável** dentro da pasta do cliente que contratou |
+| **Operação interna** da Fibbo (QA, cadência, coordenação) | Uma lista de **Gestão de Projetos**, separada das entregas |
+
+O Space "SITES & LANDING PAGES" que existe hoje falha nesse teste: ele trata uma *entrega* como se fosse um cliente. Por isso ele sai do modelo novo (detalhe em §6 e Anexo A · D10).
+
+---
+
+## 3. O desenho do Space novo
+
+Estrutura proposta (itens marcados 🔹 são propostas a validar com você):
+
+```
+🏗️ SPACE: Fibbo — Operação 🔹
+│
+├── ⚡ Sprint (lista única · ciclo de 1 semana)
+│      └── esteira de execução de TODOS os clientes · base do capacity do time
+│
+├── ⚙️ Coordenação Fibbo (pasta)
+│      └── rituais e gestão que cobrem todos os clientes (não é de um cliente só)
+│
+├── 📁 CLIENTE A (pasta)
+│      ├── 📋 Backlog — escopo/entregas do cliente (ciclo de vida completo)
+│      │      ├── 🗂️ Bloco: Site        (task-mãe + subtarefas)
+│      │      ├── 🗂️ Bloco: LP          (task-mãe + subtarefas)
+│      │      ├── 🗂️ Bloco: Relatórios  (recorrências materializadas)
+│      │      └── 🗂️ Bloco: Social      (…)
+│      └── 🔧 Gestão de Projetos — operacional Fibbo daquele cliente (QA, cadência)
+│
+├── 📁 CLIENTE B (pasta) … mesma estrutura, blocos conforme o combo contratado
+└── …
+```
+
+**Status (universais, os mesmos para todos) 🔹** — proposta a validar: `A Fazer` → `Planejado` → `Em Execução` → `Revisão Interna` → `Aguardando Cliente` → `Concluído` (+ `Bloqueado`). Como o status vale para todo tipo de trabalho, ele é genérico de propósito; estado específico de um fluxo (ex.: "aguardando validação de KV") vira campo ou checklist, não status.
+
+**Campos 🔹** — `Combo` (define quais blocos entram), `Tempo Estimado` (para comparar com o real, mais adiante), e uma definição para o campo `Data de Go-Live` já existente (dar processo ou remover).
+
+**Views** — por cliente (inclusive dentro da Sprint), por pessoa (capacity/carga), por equipe/área, por status.
+
+---
+
+## 4. Como um cliente vive no Space (ciclo de vida)
+
+```mermaid
+flowchart LR
+    A["Contrato assinado<br/>Handover Comercial → Operação"] --> B["Onboarding<br/>Semanas 1-4 (gated por checklist)"]
+    B --> C{"Migração:<br/>onboarding concluído?"}
+    C -->|Não| B
+    C -->|Sim| D["Ativo / Operação<br/>cadência semanal + mensal"]
+    D --> E["Revisão Trimestral<br/>recorrente"]
+    E --> D
+    D --> F{"Fim do contrato (1 ano)"}
+    F -->|Renova| G["Novo template aplicado"]
+    G --> D
+    F -->|Encerra| H["Encerramento + arquivamento<br/>⚠️ regra a definir"]
+```
+
+O cliente entra pelo handover comercial (o ClickUp é o CRM oficial — o registro nasce aqui, antes de qualquer pasta no Drive), passa por um onboarding de 4 semanas com critério de saída, opera em cadência, é revisado a cada trimestre e, ao fim do contrato de 1 ano, renova (novo template) ou encerra.
+
+---
+
+## 5. Como o trabalho flui (backlog → sprint)
+
+O mecanismo central: a entrega (task-mãe) fica no Backlog do cliente e **nunca** vai para a Sprint. As tarefas executáveis (subtarefas) são **adicionadas** à Sprint — não movidas. É a mesma tarefa aparecendo em dois lugares: uma tarefa, uma verdade.
+
+```mermaid
+flowchart TD
+    subgraph CLI["📁 PASTA · CLIENTE (Backlog)"]
+        M["🗂️ Task-mãe: entrega<br/>(fica sempre aqui)"]
+        M --> S1["↳ subtarefa executável"]
+        M --> S2["↳ subtarefa executável"]
+    end
+    subgraph OP["⚡ SPRINT ÚNICA (semanal)"]
+        SP["executáveis de todos os clientes<br/>capacity do time"]
+    end
+    S1 -.->|Adicionar à Lista| SP
+    S2 -.->|fica no backlog até a semana certa| CLI
+    SP -.->|View por cliente| VX["leitura por cliente"]
+    SP -.->|View por pessoa| CAP["carga / capacity"]
+```
+
+Isso dá ao Fabrício e à coordenação o que falta hoje: **capacity do time inteiro num só lugar** e **o ciclo de vida completo de cada cliente** num só lugar — sem duplicar dado.
+
+---
+
+## 6. Abordagem de entrada: MVP em Space limpo
+
+**Decidido:** construir um Space novo do zero, rodar **só clientes novos** nele, **sem migrar** o legado agora. Isso isola o modelo novo da bagunça do AS-IS — quando algo quebrar, sabemos que é o desenho novo, não resíduo do passado.
+
+Isso exige quatro acordos para o "limpo" não durar pouco (campos de decisão para você):
+
+- **Data de corte** — a partir de **[definir]**, nenhum cliente novo nasce no modelo antigo.
+- **Critério de validação do MVP 🔹** — proposta: *N clientes novos rodando por M semanas*, com backlog materializado, sprint semanal operando e capacity visível, sem ninguém voltando para planilha paralela. Definir **N** e **M**.
+- **Amarração com o Go-Live contratual (Cláusula 10)** — proposta: o Go-Live contratual passa a ser *"MVP validado no Space novo"*. Precisa de definição formal, hoje em aberto.
+- **Aposentadoria do modelo antigo** — data-alvo **[definir]** para migrar os clientes antigos ou congelar o modelo velho. Enquanto houver operação viva nos dois, o sistema-duplo do AS-IS segue de pé — de propósito e temporário, mas com prazo.
+
+---
+
+## 7. O que peço ao Fabrício
+
+1. **Sponsorship visível.** A adoção do ClickUp degradou por falta de disciplina sustentada, não de estrutura. Sua presença cobrando o uso nas primeiras semanas é operacionalmente necessária — não opcional.
+2. **Aprovar este desenho** (§3–§5) e a **extinção do Space departamental SITES & LANDING PAGES** (§2, Anexo A · D10).
+3. **Decidir o upgrade para o plano Business do ClickUp.** É **pré-condição técnica** do mecanismo central (subtarefa no backlog + na sprint) e da visão de capacity. Tem custo por usuário/mês (Anexo B). Sem ele, o desenho muda.
+4. **Definir data de corte + critério de validação do MVP/Go-Live** (§6).
+
+---
+
+## 8. Pendências e próximos blocos
+
+- **Catálogo de blocos de entrega** — próximo trabalho pesado. Não são templates monolíticos por combo: é um catálogo de **blocos replicáveis** (Site, LP, Social, Relatório…), e o combo do cliente define quais entram. Escrevemos o **escopo** de cada bloco primeiro; o **tempo estimado** de cada subtarefa entra numa segunda passada (precisa dos líderes de cada área).
+- **Encerramento / Offboarding** — ainda sem regra. Urgente por causa do contrato de 1 ano e das recorrências materializadas.
+- **Verificação de plano** — confirmar no App Center se o ClickApp *Subtasks in Multiple Lists* está disponível no plano atual antes de construir.
+
+---
+---
+
+# ANEXO A · Registro de decisões e trade-offs
+
+Para quem executa. Cada decisão registra o que se ganha e o que custa.
+
+### D1 · Pasta por cliente + espinha global de Operação
+- **Ganha:** capacity do time inteiro num só lugar; coordenação transversal não fragmentada.
+- **Nota:** com *Adicionar à Lista* (não mover), a subtarefa mantém a pasta do cliente como casa e segue visível no Backlog — sem campo Cliente load-bearing.
+- **Custa:** exige plano Business (Anexo B); gestão vive em dois planos (global + por-cliente), exigindo clareza de "o que vai onde".
+
+### D2 · Backlog = escopo não-puxado; Sprint = puxado
+- **Ganha:** semântica limpa; a Sprint tem escopo real e mensurável.
+- **Intenção (não é custo):** impor por ≥6 meses um processo com cerimônias, monitoramento e planning mais manual é o que constrói cultura e hábito — o time hoje usa o ClickUp só para "pegar a task". O trabalho manual é a intervenção.
+- **Risco real:** o hábito só se forma se a cadência for sustentada e cobrada. Ritual abandonado vira a janela quebrada do AS-IS. O risco é a não-enforcement, não a manualidade.
+
+### D3 · Sprint única global, semanal
+- **Ganha:** capacity e alocação do time inteiro num único lugar; ritmo comum.
+- **Propriedade do desenho (não é custo):** a visão por cliente sai de View filtrada/agrupada — que é para o que Views existem. Sprint global reforça a espinha global. Ambos coerentes com o modelo.
+
+### D4 · Task-mãe fica no backlog; subtarefa vai à Sprint via "Adicionar à Lista"
+- **Ganha:** fonte única real — uma tarefa, dois lugares, sem espelho.
+- **Custa:** dependência do ClickApp *Subtasks in Multiple Lists* (plano Business, Anexo B). É a única condição real do desenho.
+- **Leitura por View:** Views por cliente dentro da Sprint (agrupadas pela pasta). A subtarefa é filha da mãe por natureza e mantém a pasta como casa — nunca fica órfã.
+- **Exceção fechada (D10):** com site/LP na pasta do cliente, localização = cliente sempre; campo Cliente desnecessário.
+
+### D5 · Status idênticos Backlog ↔ Sprint
+- **Coerência (não é custo):** ciclo único, status único para toda a operação e clientes. Visualização diferenciada vem de filtros/Views.
+- **Implicação:** o conjunto de status precisa ser genérico o bastante para caber todo tipo de trabalho. Estado específico de um fluxo vira campo/checklist, não status.
+
+### D6 · Backlog (entrega billable) ≠ Gestão de Projetos (operacional Fibbo)
+- **Decisão:** Backlog = entregas do cliente. Gestão de Projetos = QA de relatório, cadência, coordenação — o que faz o projeto ter sucesso mas não é entrega. Subdividido: gestão *sobre um cliente* → pasta; coordenação *da operação inteira* → Espaço Operação.
+- **Ganha:** torna visível o trabalho de sustentação hoje invisível — parte do que vira gargalo. Vira task rastreável = visibilidade gerencial.
+- **Custa:** mais tasks para manter; exige disciplina de classificar entrega vs. operacional.
+
+### D7 · Recorrências materializadas à frente (não por automação pós-conclusão)
+- **Decisão:** todas as instâncias recorrentes criadas na abertura, cada uma com due date.
+- **Ganha:** a view de planejado é verdadeira no dia em que se olha — capacity de 12 meses existe hoje, com horas reais.
+- **Custa:** backlog denso. Exige granularidade (materializa o que é puxado como unidade; volume interno vira subtarefa/checklist), due date na criação, e manutenção na renovação (D9).
+
+### D8 · Escopo fechado → catálogo de blocos + tempo estimado
+- **Decisão:** cada entrega é um bloco replicável com escopo padrão e (numa segunda passada) tempo estimado. O combo define quais blocos entram. Real executado será comparado ao estimado.
+- **Ganha:** o bloco vira contrato executável; previne over/under-delivery; alimenta forecasting. Conecta ao WBS da Mariana.
+- **Custa:** catálogo para construir, versionar e manter; erro no bloco propaga a todos os clientes que o usam. Artefato de governança.
+
+### D9 · Contrato de 1 ano; renovação aplica novo template
+- **Ganha:** ciclo de planejamento alinhado ao comercial; template sempre reflete o escopo vigente; flexibilidade sem perder o padrão.
+- **Custa:** exige evento de renovação com dono e gatilho — senão o backlog seca no mês 12 sem reaplicar recorrências.
+
+### D10 · Site/LP é entrega, não cliente — bloco replicável na pasta do cliente
+- **Decisão:** site e LP são tipos de entrega que um cliente contrata. Moram na pasta do cliente, como bloco mãe/subtarefa, replicado em todo cliente que contratou.
+- **Correção estrutural:** o Space separado *SITES & LANDING PAGES* é resquício do modelo departamental (organiza por tipo de trabalho, tratando entrega como cliente). Contradiz a decisão-mãe do projeto e será extinto.
+- **Ganha:** fecha a exceção de D4 (localização = cliente sempre); é o caso-piloto do catálogo de blocos (D8).
+- **Consequência:** o conteúdo existente no Space legado precisa de caminho (migrar ou congelar). Decidido não migrar agora — construir o novo do zero e rodar só clientes novos (§6).
+
+---
+
+# ANEXO B · Limitações do plano ClickUp
+
+Figuras da documentação e comparativos do ClickUp (jul/2026) — **verificar contra a página de preços atual e o plano real da Fibbo**, pois o ClickUp altera pricing/gating com frequência. Planos (anual): Free $0 · Unlimited $7/usuário/mês · Business $12/usuário/mês · Enterprise sob cotação.
+
+| Feature que a arquitetura exige | Por que precisamos | Tier mínimo | Risco no plano básico |
+|---|---|---|---|
+| **Subtasks in Multiple Lists** (ClickApp) | Núcleo: subtarefa no backlog **e** na sprint sem duplicar | **Business** | 🔴 CRÍTICO — sem isso o desenho não existe |
+| **Custom Fields sem cap** | Tempo estimado, combo e demais campos | Unlimited+ | 🔴 Free tem cap (~60–100 usos) |
+| **Workload / capacity view** | Razão da Sprint global | Business | 🟠 Sem isso, capacity vira planilha manual |
+| **Time Tracking + Time Estimate** | Comparar estimado × real | Unlimited+ (tracking); reporting em Business | 🟠 |
+| **Teams / user groups** | Permissão e menção por equipe | 1 no Unlimited · ilimitado no Business | 🟠 Limitação já sentida |
+| **Automations (volume)** | Adicionar à sprint, notificações | Free ~100 · Unlimited ~1.000 · Business ~5–10 mil /mês | 🟡 Escala com nº de clientes |
+| **Sprint reporting** (velocity/burndown) | Decidimos não usar | Business | 🟢 Não crítico |
+| **Spaces** | Estrutura | Free = 5 máx | 🟡 |
+
+**Leitura direta:** o desenho exige, muito provavelmente, o **plano Business**. Os dois gatilhos são *Subtasks in Multiple Lists* (mecanismo central) e *Workload* (a razão da Sprint global). Verificar no App Center antes de construir. Limite técnico a monitorar: uma View carrega até ~5.000 tarefas por vez — a Sprint global precisa de política de arquivamento/filtro.
+
+---
+
+# ANEXO C · Combinados consolidados
+
+1. Pasta por cliente + espinha global de Operação (Sprint e coordenação fora das pastas).
+2. Backlog = escopo não-puxado; Sprint = puxado (modelo pull).
+3. Sprint única global, ciclo de 1 semana.
+4. Task-mãe fica no backlog e nunca vai à Sprint; subtarefa vai via "Adicionar à Lista" (não move).
+5. Status idênticos Backlog ↔ Sprint; visão completa é o Backlog, Sprint é esteira.
+6. Backlog (entrega billable) ≠ Gestão de Projetos (operacional Fibbo); GP subdividido cliente × transversal.
+7. Recorrências materializadas à frente, com due date na criação.
+8. Escopo fechado → catálogo de blocos de entrega replicáveis com tempo estimado padrão (tempo numa 2ª passada).
+9. Contrato de 1 ano; renovação aplica novo template como base; time flexibiliza a partir dele.
+10. Site/LP são entregas (não clientes): bloco de tasks na pasta do cliente que contratou; Space departamental *SITES & LANDING PAGES* será extinto.
+11. Entrada via MVP: Space novo do zero, só clientes novos, sem migração agora.
+
+---
+
+*Documento gerado no contexto do contrato PFC-2026-001 (Paolla Fonseca Consultoria × Fibbo). Versionado em https://github.com/paolla-consultoria/consultoriafibbo. A consultoria é a ponte e o apoio — não a dona da operação.*

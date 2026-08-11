@@ -45,26 +45,35 @@ Estrutura proposta (itens marcados 🔹 são propostas a validar com você):
 ├── ⚡ Sprint (lista única · ciclo de 1 semana)
 │      └── esteira de execução de TODOS os clientes · base do capacity do time
 │
-├── ⚙️ Coordenação Fibbo (pasta)
-│      └── rituais e gestão que cobrem todos os clientes (não é de um cliente só)
+├── ⚙️ Operação Fibbo / Coordenação (pasta)
+│      └── só rituais cross-team que todos fazem (ex.: planning) — independem de cliente
 │
 ├── 📁 CLIENTE A (pasta)
-│      ├── 📋 Backlog — escopo/entregas do cliente (ciclo de vida completo)
-│      │      ├── 🗂️ Bloco: Site        (task-mãe + subtarefas)
-│      │      ├── 🗂️ Bloco: LP          (task-mãe + subtarefas)
-│      │      ├── 🗂️ Bloco: Relatórios  (recorrências materializadas)
-│      │      └── 🗂️ Bloco: Social      (…)
-│      └── 🔧 Gestão de Projetos — operacional Fibbo daquele cliente (QA, cadência)
+│      ├── 📄 Ficha do Cliente (Doc padrão · nasce com a pasta)
+│      ├── 📋 Backlog — entregas ao cliente (ciclo de vida completo)
+│      │      ├── 📦 Site        (Pacote · fecha)
+│      │      ├── 📦 LP          (Pacote · fecha)
+│      │      ├── 📦 Relatórios  (Pacote · recorrências materializadas)
+│      │      └── 📦 Editorial   (Pacote · …)
+│      └── 🔧 Gestão de Projetos — gestão do cliente (não-entrega)
+│             ├── 📦 Onboarding      (Pacote · fecha · tarefas de processo)
+│             ├── 📦 Status Report   (Pacote · sem 1…52 materializadas)
+│             ├── 📦 Relatórios      (Pacote · mês 1…12)
+│             └── 🪣 Atendimento     (Balde · nunca fecha · subtasks conforme surgem)
 │
-├── 📁 CLIENTE B (pasta) … mesma estrutura, blocos conforme o combo contratado
+├── 📁 CLIENTE B (pasta) … mesma estrutura, pacotes conforme o combo contratado
 └── …
 ```
 
-**Status (universais, os mesmos para todos) 🔹** — proposta a validar: `A Fazer` → `Planejado` → `Em Execução` → `Revisão Interna` → `Aguardando Cliente` → `Concluído` (+ `Bloqueado`). Como o status vale para todo tipo de trabalho, ele é genérico de propósito; estado específico de um fluxo (ex.: "aguardando validação de KV") vira campo ou checklist, não status.
+**Tipos de task (4, confirmado)** — `Tarefa` (subtarefa planejada) · `Pacote` (task-mãe que **fecha**) · `Balde` (task-mãe que **não fecha**) · `Atendimento` (subtarefa **reativa**, solicitação do cliente). Entrega vs. gestão é dada pela **localização** (Backlog vs. GP), não pelo tipo. Um só **nível de subtarefa**: micro-passos viram checklist; agrupamentos (ex.: raias GP/Fin/CS) viram campo, não aninhamento.
 
-**Campos 🔹** — `Combo` (define quais blocos entram), `Tempo Estimado` (para comparar com o real, mais adiante), e uma definição para o campo `Data de Go-Live` já existente (dar processo ou remover).
+**Status de Operação (confirmado)** — o mesmo set em toda a pasta e na Sprint: `A Fazer` · `Em Execução` · `Ajustes` · `Revisão Interna` · `Aguardando Cliente` · `Bloqueado` · `Concluído` (+ `Cancelado`). Governado no **nível do Space** (muda-se uma vez, propaga para tudo). Cobre onboarding, desenvolvimento, aprovações, recorrências e offboarding sem status extra. O CRM tem set próprio (Space Comercial); o CS é absorvido por este set. Detalhe no Anexo A · D5/D11.
+
+**Campos 🔹** — `Combo` (define quais pacotes entram), `Tempo Estimado` (comparar com o real, mais adiante), `Rodadas de Ajuste` (contador automático de retrabalho) + `Motivo do Ajuste`, `Raia` (agrupa subtarefas — ex.: GP/Fin/CS no onboarding), e uma definição para o campo `Data de Go-Live` já existente (dar processo ou remover).
 
 **Views** — por cliente (inclusive dentro da Sprint), por pessoa (capacity/carga), por equipe/área, por status.
+
+**Ficha do Cliente (Doc padrão, nasce com a pasta)** — toda pasta de cliente já nasce com uma **Ficha padronizada** anexada, com o contexto do negócio e as informações gerais. Recomendo um **ClickUp Doc** (nativo, pesquisável, dentro da fonte única — melhor que um link externo, que fragmenta). Conteúdo padrão: identificação (razão social, nome fantasia, CNPJ, ramo/segmento, porte, site/redes), contrato (combo, valor, vigência, responsável comercial), stakeholders (decisor principal + contatos), contexto do negócio (o que faz, mercado, concorrentes, diferenciais — do briefing), e **links** para os artefatos pesados no Drive (briefing, TAP, `05_Entregas`) e para o grupo de WhatsApp. Os **dados cadastrais vêm do card do lead** (Anexo F) e são transportados quando a Mariana aplica o template — a Ficha nasce já preenchida, não em branco.
 
 ---
 
@@ -72,19 +81,17 @@ Estrutura proposta (itens marcados 🔹 são propostas a validar com você):
 
 ```mermaid
 flowchart LR
-    A["Contrato assinado<br/>Handover Comercial → Operação"] --> B["Onboarding<br/>Semanas 1-4 (gated por checklist)"]
-    B --> C{"Migração:<br/>onboarding concluído?"}
-    C -->|Não| B
-    C -->|Sim| D["Ativo / Operação<br/>cadência semanal + mensal"]
-    D --> E["Revisão Trimestral<br/>recorrente"]
-    E --> D
-    D --> F{"Fim do contrato (1 ano)"}
+    A["Contrato assinado<br/>Cliente ATIVO desde já"] --> B["Fase intensiva · Semanas 1-4<br/>Pacote Onboarding ABERTO"]
+    B --> C["Regime · cadência semanal + mensal<br/>Pacote Onboarding fechado"]
+    C --> E["Revisão Trimestral<br/>recorrente"]
+    E --> C
+    C --> F{"Fim do contrato (1 ano)"}
     F -->|Renova| G["Novo template aplicado"]
-    G --> D
+    G --> C
     F -->|Encerra| H["Encerramento + arquivamento<br/>⚠️ regra a definir"]
 ```
 
-O cliente entra pelo handover comercial (o ClickUp é o CRM oficial — o registro nasce aqui, antes de qualquer pasta no Drive), passa por um onboarding de 4 semanas com critério de saída, opera em cadência, é revisado a cada trimestre e, ao fim do contrato de 1 ano, renova (novo template) ou encerra.
+**Não há status de ciclo de vida.** O cliente está *ativo* desde a assinatura — "Onboarding vs Ativo" como estado seria complexidade sem retorno. A fase intensiva das primeiras semanas é **observável**, não declarada: cliente com o **Pacote Onboarding aberto** está em fase intensiva; fechado, está em regime. Uma View de "pacotes de onboarding abertos" mostra quem está nas primeiras semanas — sem ninguém ter que lembrar de virar um status. A entrada é pelo handover comercial (o ClickUp é o CRM oficial — o registro nasce aqui, antes de qualquer pasta no Drive).
 
 ---
 
@@ -136,8 +143,10 @@ Isso exige quatro acordos para o "limpo" não durar pouco (campos de decisão pa
 
 ## 8. Pendências e próximos blocos
 
-- **Catálogo de blocos de entrega** — próximo trabalho pesado. Não são templates monolíticos por combo: é um catálogo de **blocos replicáveis** (Site, LP, Social, Relatório…), e o combo do cliente define quais entram. Escrevemos o **escopo** de cada bloco primeiro; o **tempo estimado** de cada subtarefa entra numa segunda passada (precisa dos líderes de cada área).
-- **Encerramento / Offboarding** — ainda sem regra. Urgente por causa do contrato de 1 ano e das recorrências materializadas.
+- **Catálogo de blocos de entrega (Backlog)** — iniciado no **Anexo G**: um bloco por serviço (Performance, Conteúdo, FibboMetrics, SEO·GEO, Site, Leads, Hospedagem), com as recorrências mapeadas. Falta a **matriz completa dos 8 combos** e o detalhe fino de horas/condicionais (2ª passada, a partir dos manuais de serviço).
+- **Kanban Comercial (CRM)** — desenhado no **Anexo F**; a validar com Danilo/Ronaldo (donos do processo real de venda).
+- **Offboarding** — ✅ aprovado (11 tarefas no Anexo E). Item de encerramento, aberto desde o início, fechado.
+- **Camada jurídico / financeiro / administrativa** — contratos, faturamento, cobrança, compliance e ADM de clientes **serão tratados numa fase posterior e conectados ao processo**. As tarefas financeiras que já aparecem (1ª NF no onboarding, acerto final no offboarding) são os **pontos de conexão** dessa camada — não o desenho completo dela. Fora do escopo atual, por decisão.
 - **Verificação de plano** — confirmar no App Center se o ClickApp *Subtasks in Multiple Lists* está disponível no plano atual antes de construir.
 
 ---
@@ -167,14 +176,51 @@ Para quem executa. Cada decisão registra o que se ganha e o que custa.
 - **Leitura por View:** Views por cliente dentro da Sprint (agrupadas pela pasta). A subtarefa é filha da mãe por natureza e mantém a pasta como casa — nunca fica órfã.
 - **Exceção fechada (D10):** com site/LP na pasta do cliente, localização = cliente sempre; campo Cliente desnecessário.
 
-### D5 · Status idênticos Backlog ↔ Sprint
-- **Coerência (não é custo):** ciclo único, status único para toda a operação e clientes. Visualização diferenciada vem de filtros/Views.
-- **Implicação:** o conjunto de status precisa ser genérico o bastante para caber todo tipo de trabalho. Estado específico de um fluxo vira campo/checklist, não status.
+### D5 · Arquitetura de status — padronização por domínio, não set único
+- **Princípio:** governança não é um set único para tudo, é o **mesmo set para o mesmo tipo de trabalho**, em todo lugar que ele aparece. Três domínios = três máquinas de estado: **CRM** (funil de venda), **Operação** (execução), e **CS absorvido pela Operação**. Um set único atravessando vendas e operação viraria Frankenstein e recriaria a confusão dos tickets paralelos do AS-IS.
+- **Mecânica:** status vivem no **nível do Space**, não da Lista — muda-se uma vez e propaga. Set por lista = editar dezenas de listas depois (o pesadelo de governança a evitar). O ClickUp não tem "status global de workspace" automático; padronização = mesmo set aplicado em cada Space do domínio.
+- **Set de Operação (idêntico em Backlog e Sprint):** `A Fazer` · `Em Execução` · `Ajustes` · `Revisão Interna` · `Aguardando Cliente` · `Bloqueado` · `Concluído` (+ `Cancelado`). Racional dos dois "esperas": `Revisão Interna` é QA da Fibbo; `Aguardando Cliente` é dependência externa — medir cada um separadamente é dado gerencial. Gate de briefing é **dependência**, não status; aprovação é `Aguardando Cliente`; estado específico de fluxo ("aguardando validação de KV") vira campo/checklist.
+- **CS entra na Operação:** relacionamento/saúde (check-in, NPS, health score) é cadência e pontuação, não status; demanda de atendimento vira task no set de Operação com etiqueta `Tipo: Demanda avulsa`. Set próprio de CS provavelmente é um dos tickets paralelos do AS-IS — não recriar.
+- **CRM é set próprio (Space Comercial):** funil a validar com Danilo/Ronaldo. `Ganho` dispara o handover para a Operação (D+0 do onboarding) — único ponto onde os dois Spaces se tocam.
+- **`Backlog` e `Sprint` não são status** — são localização (lista). Task no Backlog com `A Fazer` = não puxada.
 
-### D6 · Backlog (entrega billable) ≠ Gestão de Projetos (operacional Fibbo)
-- **Decisão:** Backlog = entregas do cliente. Gestão de Projetos = QA de relatório, cadência, coordenação — o que faz o projeto ter sucesso mas não é entrega. Subdividido: gestão *sobre um cliente* → pasta; coordenação *da operação inteira* → Espaço Operação.
-- **Ganha:** torna visível o trabalho de sustentação hoje invisível — parte do que vira gargalo. Vira task rastreável = visibilidade gerencial.
-- **Custa:** mais tasks para manter; exige disciplina de classificar entrega vs. operacional.
+### D11 · Medição de retrabalho — contador, não status numerado
+- **Decisão:** retrabalho medido por um **campo contador** `Rodadas de Ajuste`, incrementado por automação a **cada entrada** no status `Ajustes` — não por status numerados (Ajustes 1/2/3), que não têm teto, esquecem a história ao mudar de estado e não agregam. Status guarda *onde está*; o contador guarda *por quantas passou*.
+- **Separar origem:** distinguir retrabalho de **QA interno** (`Revisão Interna → Ajustes`) de mudança do **cliente** (`Aguardando Cliente → Ajustes`), via dois contadores ou contador + campo `Motivo do Ajuste` (erro interno · mudança de escopo · briefing incompleto). Sem isso, sabe-se que custou, não de quem foi — treino interno vs. renegociar escopo comercial.
+- **Config a definir:** onde o contador agrega — subtarefa/peça vs. rollup na task-mãe. Não é automático.
+- **Ganha:** média de rodadas por cliente / por entrega / por área — identifica cliente e processo caros.
+- **Ressalva:** fidelidade depende da adesão ao fluxo de status (D2). Se o analista refaz sem passar por `Ajustes`, subestima. Nos primeiros meses é **tendência**, não precisão — comunicar assim ao apresentar.
+
+### D12 · Onboarding = Pacote na Gestão de Projetos; entregas no Backlog; sem status de fase
+- **Decisão:** o onboarding é específico de um cliente e **não é entrega** — entra na **Gestão de Projetos** como um **Pacote** (task-mãe tipo `Pacote`, instância única) com as tarefas de *processo* do playbook: handoff, preencher briefing, marcar kickoff, coletar acessos, setup financeiro, comunicação inicial.
+- **Entregas saem do pacote → Backlog:** os 3 relatórios da S3 (edição inaugural do FibboMetrics), o Contexto de Marca e a Linha Editorial são entregas ao cliente → nascem como **Pacotes no Backlog**, primeiras instâncias dos recorrentes ou entregas one-time. Aplicação consistente do D6, e preserva a continuidade (o inaugural vira o recorrente sem recriar). Entrega é entrega independente da semana; o que muda (recorre ou não) é o padrão de escopo do combo.
+- **Sem status de ciclo de vida:** morto o `Onboarding → Ativo`. O cliente é ativo desde a assinatura. A fase intensiva é **observável** pelo Pacote Onboarding **aberto** (não por um estado que alguém vira) — uma View de pacotes de onboarding abertos mostra quem está nas primeiras semanas. A conclusão do pacote também dá, de graça, a métrica de *tempo de onboarding*. O gate do briefing (checklist de acessos) é **dependência** entre tasks, não status.
+- **Custa:** o template injeta em dois lugares (Pacote na GP + Pacotes no Backlog) — mais trabalhoso que uma "Lista Onboarding" única, mas sem abrir exceção ao D6. Detalhe operacional no Anexo D.
+
+### D13 · Quatro tipos de task — `Tarefa` · `Pacote` · `Balde` · `Atendimento`
+- **Decisão:** `Tarefa` (subtarefa planejada) · `Pacote` (mãe que **fecha**) · `Balde` (mãe que **não fecha**) · `Atendimento` (subtarefa **reativa** — solicitação do cliente).
+- **Racional:** `Pacote`/`Balde` carregam o **comportamento** (fecha × não-fecha). `Tarefa`/`Atendimento` são folhas, separadas por **tipo de trabalho** (planejado × reativo). A **natureza** entrega×gestão continua vindo da **localização** (Backlog × GP), não do tipo — foi por isso que "Pacote de Entrega/Gestão" foi descartado, mas `Atendimento` é legítimo (é tipo de trabalho, não natureza; caso canônico de ticket).
+- **Balde é exceção, não default:** a distinção Pacote×Balde é **planejável × imprevisível**. Default é `Pacote` com o recorrente materializado (mesmo serviços "por evento" como Hospedagem têm manutenção planejável). `Balde` fica só para o resíduo genuinamente imprevisível — na prática, só o Atendimento ao Cliente.
+- **`Atendimento` pareado com campos:** o tipo diz *o que é*; a urgência é `Priority` (nativo, automatizável); *o que o cliente mais pede* é `Categoria`; *quem mais pede* é a localização. Ao promover ao Backlog, o card converte para tipo de entrega.
+- **Gating:** Custom Task Type exige **Unlimited+** (usos ilimitados; máx. 100 tipos; nome ≤16 chars). Não é o que força o Business.
+
+### D14 · Um único nível de subtarefa
+- **Decisão:** nunca subtarefa dentro de subtarefa. Um nível só.
+- **Micro-passos** abaixo do executável → **checklist** dentro da subtarefa (ex.: roteiro/design/revisão dentro de "Post 3").
+- **Agrupamentos** → **campo**, não nível (ex.: as raias GP/Fin/CS do onboarding = campo `Raia`, filtra-se por ele em vez de aninhar).
+
+### D15 · Estrutura da Gestão de Projetos — Pacotes + Baldes, recorrentes materializados
+- **Decisão:** a GP usa a mesma gramática do Backlog (mãe + subtarefas). Contém **Pacotes** (Onboarding — única; Status Report, Relatórios — recorrentes) e **Baldes** (Atendimento ao Cliente).
+- **Materialização à frente (D7 vale para a GP também):** Status Report `sem 1…52`, Relatórios `mês 1…12` criados na abertura, com due date. Sem isso, o capacity do CS fica invisível como ficaria o do analista.
+- **Custa:** a GP também vira lista densa — paga-se o preço da "densidade por planejamento real" duas vezes (Backlog + GP). Aceitável, registrado.
+
+### D6 · Três buckets: Operação Fibbo × Gestão de Projetos × Backlog
+- **Definições precisas:**
+  - **Operação Fibbo** (global, no Space): só **rituais cross-team** que todos fazem, independente de cargo, cliente ou entrega da semana — ex.: reunião de planning. Não é específico de cliente.
+  - **Gestão de Projetos** (pasta do cliente): gestão **específica daquele cliente** que **não é entrega** a ele — ex.: status report semanal com cliente, preencher briefing. Pode ou não ser recorrente.
+  - **Backlog** (pasta do cliente): **entregas ao cliente** — criativo, LP, site, relatórios entregues.
+- **Ganha:** torna visível o trabalho de sustentação hoje invisível — parte do que vira gargalo. Cada coisa tem uma casa não-ambígua.
+- **Custa:** exige disciplina de classificar na criação (entrega × gestão do cliente × ritual global).
 
 ### D7 · Recorrências materializadas à frente (não por automação pós-conclusão)
 - **Decisão:** todas as instâncias recorrentes criadas na abertura, cada uma com due date.
@@ -211,9 +257,10 @@ Figuras da documentação e comparativos do ClickUp (jul/2026) — **verificar c
 | **Teams / user groups** | Permissão e menção por equipe | 1 no Unlimited · ilimitado no Business | 🟠 Limitação já sentida |
 | **Automations (volume)** | Adicionar à sprint, notificações | Free ~100 · Unlimited ~1.000 · Business ~5–10 mil /mês | 🟡 Escala com nº de clientes |
 | **Sprint reporting** (velocity/burndown) | Decidimos não usar | Business | 🟢 Não crítico |
+| **Custom Task Types** (`Pacote`/`Balde`) | Tipos próprios de task | **Unlimited+** (máx. 100 tipos, nome ≤16 chars) | 🟢 Não força Business; incluído nele |
 | **Spaces** | Estrutura | Free = 5 máx | 🟡 |
 
-**Leitura direta:** o desenho exige, muito provavelmente, o **plano Business**. Os dois gatilhos são *Subtasks in Multiple Lists* (mecanismo central) e *Workload* (a razão da Sprint global). Verificar no App Center antes de construir. Limite técnico a monitorar: uma View carrega até ~5.000 tarefas por vez — a Sprint global precisa de política de arquivamento/filtro.
+**Leitura direta:** o desenho exige o **plano Business**, e o gatilho são **só dois**: *Subtasks in Multiple Lists* (mecanismo central) e *Workload* (a razão da Sprint global). Custom Task Types e Custom Fields sozinhos parariam no Unlimited — não ancore a justificativa do custo neles. Verificar no App Center antes de construir. Limite técnico a monitorar: uma View carrega até ~5.000 tarefas por vez — a Sprint global precisa de política de arquivamento/filtro.
 
 ---
 
@@ -223,13 +270,582 @@ Figuras da documentação e comparativos do ClickUp (jul/2026) — **verificar c
 2. Backlog = escopo não-puxado; Sprint = puxado (modelo pull).
 3. Sprint única global, ciclo de 1 semana.
 4. Task-mãe fica no backlog e nunca vai à Sprint; subtarefa vai via "Adicionar à Lista" (não move).
-5. Status idênticos Backlog ↔ Sprint; visão completa é o Backlog, Sprint é esteira.
-6. Backlog (entrega billable) ≠ Gestão de Projetos (operacional Fibbo); GP subdividido cliente × transversal.
+5. Status idênticos Backlog ↔ Sprint no set de Operação; visão completa é o Backlog, Sprint é esteira.
+6. Três buckets: Operação Fibbo (rituais cross-team) × Gestão de Projetos (gestão do cliente, não-entrega) × Backlog (entrega ao cliente).
 7. Recorrências materializadas à frente, com due date na criação.
 8. Escopo fechado → catálogo de blocos de entrega replicáveis com tempo estimado padrão (tempo numa 2ª passada).
 9. Contrato de 1 ano; renovação aplica novo template como base; time flexibiliza a partir dele.
 10. Site/LP são entregas (não clientes): bloco de tasks na pasta do cliente que contratou; Space departamental *SITES & LANDING PAGES* será extinto.
 11. Entrada via MVP: Space novo do zero, só clientes novos, sem migração agora.
+12. Status padronizados por domínio (CRM · Operação · CS-na-Operação), governados no nível do Space. Set de Operação: A Fazer · Em Execução · Ajustes · Revisão Interna · Aguardando Cliente · Bloqueado · Concluído (+ Cancelado).
+13. Retrabalho medido por contador `Rodadas de Ajuste` (automação na entrada em `Ajustes`), separando origem interna/cliente — não por status numerado.
+14. Onboarding = pacote na Gestão de Projetos (tarefas de processo); entregas produzidas nele (Análises, Contexto de Marca, Editorial) → blocos no Backlog.
+15. Sem status de ciclo de vida: cliente ativo desde a assinatura; fase intensiva = Pacote Onboarding aberto (observável por View), não um estado.
+16. Quatro tipos de task: `Tarefa` (subtarefa planejada) · `Pacote` (mãe que fecha) · `Balde` (mãe que não fecha) · `Atendimento` (subtarefa reativa). Natureza (entrega/gestão) dada pela localização.
+17. Um único nível de subtarefa: micro-passos → checklist; agrupamentos → campo `Raia`.
+18. Gestão de Projetos = Pacotes + Baldes, recorrentes materializados à frente (D7 vale para a GP).
+19. Templates são por combo: cada combo = camada GP universal (uma vez por cliente) + os blocos de serviço (Backlog) dos serviços contratados. Blocos e matriz no Anexo G.
+
+---
+
+# ANEXO D · Onboarding na estrutura nova
+
+**Taxonomia aplicada (D6):** Operação Fibbo = rituais cross-team · Gestão de Projetos = gestão do cliente (não-entrega) · Backlog = entrega ao cliente.
+
+O onboarding é uma **fase de instância única por cliente**, distribuída em dois lugares e marcada por status:
+
+- **Pacote Onboarding** (task-mãe única na **Gestão de Projetos**) — tarefas de processo.
+- **Blocos de entrega** (no **Backlog**) — o que o cliente recebe, semeando os blocos recorrentes.
+- **Fase** = status `Onboarding → Ativo` (não é pasta que migra).
+
+### Onde cada coisa do onboarding vive
+
+O detalhamento tarefa-a-tarefa está no **Anexo E · Template da lista Gestão de Projetos**. Em resumo:
+
+- **Processo do onboarding** (marcar kickoff, handoff interno, briefing, TAP, acessos, check-ins diários, setup financeiro/comunicação) → **Pacote `Onboarding` na Gestão de Projetos**.
+- **Entregas produzidas no onboarding** (Análises → FibboMetrics inaugural · Contexto de Marca · Linha Editorial) → **Pacotes no Backlog, com o nome da entrega** — nunca "Onboarding".
+- **Fase intensiva** = Pacote `Onboarding` aberto (observável, sem status).
+
+**Regra das três camadas:** o ClickUp guarda **tarefas e status**; os **artefatos** (contrato, briefing, TAP, relatórios, KVs) moram no **Drive**; a **comunicação** com o cliente é **externa** (WhatsApp/email). Tarefa de ação externa existe no ClickUp como rastreador, não como depósito de arquivo.
+
+### Fluxo do handoff (a única ponte Comercial ↔ Operação)
+
+```mermaid
+flowchart LR
+    G["CRM: card Ganho"] -->|dispara| H["Pacote de handover<br/>escopo assinado · decisor · combo<br/>+ o que foi prometido na venda"]
+    H --> ON["Pacote Onboarding (GP)<br/>raias GP · Fin · CS"]
+    ON -.->|checklist trava| BR["Briefing (S2)"]
+    ON --> DEL["Entregas S3/S4 (Backlog)"]
+    ON ==>|pacote + entregas concluídos| AT["Pacote fecha<br/>(sai da fase intensiva)"]
+    DEL -.->|semeia| REC["Blocos recorrentes<br/>FibboMetrics · Editorial"]
+```
+
+**Ponto de governança aberto:** o *pacote de handover* (o que o Comercial é obrigado a entregar no `Ganho`) precisa ser definido com Danilo/Ronaldo. Handover incompleto = onboarding começa cego = retrabalho na largada. É o item que conecta o Space Comercial ao de Operação.
+
+---
+
+# ANEXO E · Template — Lista Gestão de Projetos
+
+Conjunto padrão de pacotes que nasce na lista **Gestão de Projetos** de todo cliente. Recorrências materializadas a **1 ano** (D7/D15). Abaixo, no formato de lista do ClickUp — pacote-mãe → subtarefas.
+
+### 📦 Onboarding · `Pacote`
+*fecha · instância única · fase intensiva observável enquanto aberto*
+
+**Processo**
+- [ ] Marcar reunião de kickoff
+- [ ] Realizar reunião de handoff interno
+- [ ] Preparar material de kickoff interno
+- [ ] Preparar material de kickoff externo
+- [ ] Preencher Briefing Zero com o cliente
+- [ ] Solicitar ao cliente contexto de marca aplicado
+- [ ] Criar pasta no Drive
+- [ ] Emitir e enviar TAP
+- [ ] Validar acessos às plataformas
+
+**Check-ins diários (WhatsApp)** · `Raia = CS` · 20 tarefas
+- [ ] Realizar check-in diário · Semana 1.1
+- [ ] Realizar check-in diário · Semana 1.2
+- [ ] Realizar check-in diário · Semana 1.3
+- [ ] Realizar check-in diário · Semana 1.4
+- [ ] Realizar check-in diário · Semana 1.5
+- [ ] Realizar check-in diário · Semana 2.1
+- [ ] Realizar check-in diário · Semana 2.2
+- [ ] Realizar check-in diário · Semana 2.3
+- [ ] Realizar check-in diário · Semana 2.4
+- [ ] Realizar check-in diário · Semana 2.5
+- [ ] Realizar check-in diário · Semana 3.1
+- [ ] Realizar check-in diário · Semana 3.2
+- [ ] Realizar check-in diário · Semana 3.3
+- [ ] Realizar check-in diário · Semana 3.4
+- [ ] Realizar check-in diário · Semana 3.5
+- [ ] Realizar check-in diário · Semana 4.1
+- [ ] Realizar check-in diário · Semana 4.2
+- [ ] Realizar check-in diário · Semana 4.3
+- [ ] Realizar check-in diário · Semana 4.4
+- [ ] Realizar check-in diário · Semana 4.5
+
+> Cada check-in é `Tarefa` (não checklist) porque consome capacity do CS e precisa ser rastreável. **TAP:** documento (cascata) com o Briefing Zero como base de escopo — o arquivo mora no Drive; a tarefa de emitir fica aqui. **Entregas do onboarding NÃO estão aqui** — Análises (→ FibboMetrics inaugural), Contexto de Marca e Linha Editorial nascem no **Backlog**, com o nome da entrega.
+
+### 📦 Cadência de Relatórios · `Pacote`
+*fecha · recorrente · reuniões e seus registros — o **material** (Pulse/Panorama) vem do Backlog (FibboMetrics), ligado por dependência; a GP registra a reunião, não a produção*
+
+- [ ] REALIZAR reunião mensal de resultados · M01…M12
+- [ ] REALIZAR revisão trimestral · T1…T4 *(mês 3, 6, 9, 12)*
+
+> A reunião mensal **consome o Pulse**; a revisão trimestral **consome o Panorama** (ambos produzidos no Backlog/FibboMetrics). Não há tarefa de "produzir material" aqui — o material é a entrega do Backlog.
+
+### 📦 Status Report Semanal · `Pacote`
+*fecha · recorrente · é o **check-in de sexta** — a GP consolida os bullets que as áreas geraram no Backlog · 3/mês × 12 (a 4ª semana é a Reunião Mensal)*
+
+- [ ] CONSOLIDAR + enviar resumo semanal · S01…S36
+
+> São **36 ocorrências** (semanas 1–3 de cada mês · a 4ª semana é a Reunião Mensal). Numeração contínua no ano; a data da tarefa diz o mês.
+
+> É a **síntese holística** da semana (check-in sexta, 17h): a GP pega os bullets que cada área enviou (Dia de Otimização, no Backlog) e conecta pensando no cliente. É o único executável de síntese da GP — não existe "Pulse semanal". Sem sufixo "- Cliente X" (a localização já diz o cliente).
+
+### 📦 Offboarding · `Pacote`
+*fecha · instância única ·* **✅ aprovado**
+
+- [ ] Validar se todas as tarefas do ClickUp estão concluídas
+- [ ] Validar se há alguma entrega pendente para o cliente
+- [ ] Realizar reunião final de encerramento do projeto com o cliente
+- [ ] Realizar reunião interna de encerramento (lições aprendidas)
+- [ ] Consolidar entregas finais e organizar handover de materiais
+- [ ] Transferir/entregar acessos e assets ao cliente
+- [ ] Emitir documentação de encerramento / relatório final
+- [ ] Financeiro: acerto final e última NF
+- [ ] Realizar pesquisa de saída / NPS final
+- [ ] Encerrar o Drive do cliente e mover para arquivados
+- [ ] Arquivar a pasta/estrutura do cliente no ClickUp
+
+### 🪣 Atendimento ao Cliente · `Balde`
+*não fecha · aberto durante todo o contrato*
+
+Ponto de queda de tudo que **não é padrão**. Todo card entra como tipo `Atendimento` + `Priority` (SLA, automatizável) + `Categoria` (o que pede); a localização diz quem pede. Triagem: **suporte** → resolve no balde; **escopo extra** → aprovar/refinar/desenhar → **promover ao Backlog** (converte para entrega, possível re-escopo/cobrança).
+
+**Rótulos de `Categoria` (proposta — calibrar com o que realmente entra; manter poucos e não sobrepostos):**
+- `Ajuste em entrega` — revisão de peça já entregue (sinaliza retrabalho/qualidade)
+- `Pedido novo / escopo extra` — trabalho fora do combo (candidato a promover ao Backlog + cobrança)
+- `Dúvida / esclarecimento` — sinaliza lacuna de comunicação
+- `Urgência / prazo` — pedido de última hora (sinaliza expectativa/planejamento)
+- `Reclamação / problema` — insatisfação (sinal de risco de churn → CS)
+- `Dado / relatório extra` — pedido de informação/número fora do padrão
+
+```mermaid
+flowchart LR
+    REQ["Solicitação do cliente<br/>(automação · tipo Atendimento)"] --> BAL["🪣 Atendimento ao Cliente"]
+    BAL --> TRI{"Triagem"}
+    TRI -->|Suporte| RES["Resolver no balde"]
+    TRI -->|Escopo extra| REF["Aprovar → refinar → desenhar"]
+    REF --> PROM["Promover ao Backlog<br/>(re-escopo/cobrança)"]
+```
+
+O balde é o radar de *scope creep* — conecta a D8 (escopo fechado) e ao `Motivo do Ajuste = mudança de escopo` (D11).
+
+**A fechar neste anexo:** validar os rótulos de `Categoria` do balde (proposta acima). *(Offboarding: ✅ aprovado.)*
+
+---
+
+# ANEXO F · Kanban Comercial (CRM)
+
+Space **Comercial**, set de status próprio (D5). O comercial gere leads num Kanban (colunas = status). **Ponto de partida de mercado — a validar com Danilo/Ronaldo**, donos do processo real.
+
+### Etapas do funil (aquisição)
+
+```mermaid
+flowchart LR
+    L["Novo Lead"] --> Q["Qualificação"]
+    Q --> C["Contato/Conexão"]
+    C --> D["Diagnóstico"]
+    D --> P["Proposta Enviada"]
+    P --> N["Negociação"]
+    N --> G["✅ Contrato Assinado (Ganho)"]
+    N -.-> PE["Perdido (c/ motivo)"]
+    Q -.-> NU["Nutrição"]
+    PE -.->|reengajar · +1 tentativa| C
+    NU -.->|reengajar · +1 tentativa| C
+    G ==>|notifica Mariana + grupo| CLI["Mariana aplica o template do cliente"]
+```
+
+- **Novo Lead** · entrou, não trabalhado
+- **Qualificação** · fit validado (orçamento, decisor, necessidade, timing)
+- **Contato/Conexão** · primeiro contato feito
+- **Diagnóstico** · reunião de descoberta realizada
+- **Proposta Enviada** · proposta/orçamento enviado
+- **Negociação** · objeções e ajustes
+- **Contrato Assinado (Ganho)** · 🎯 gatilho da virada para cliente
+- **Perdido** · com `Motivo de Perda`
+- **Nutrição** · lead frio, aguardando reengajamento
+- **Reengajamento** (retenção) · lead em Perdido/Nutrição volta ao funil ativo; `Tentativas de fechamento` +1
+
+### Campos do card de lead (= pacote de handover)
+
+Estes campos habilitam as métricas **e** são o pacote de handover que semeia a pasta do cliente (e a Ficha do Cliente) no Ganho:
+
+- **Dados cadastrais** — `Razão Social` · `Nome Fantasia` · `CNPJ` · `Ramo/Segmento` · `Porte` · `Site/Redes` · `Stakeholder principal` (nome + cargo)
+- `Empresa` · `Responsável comercial` (Danilo/Ronaldo) · `Origem` (indicação · inbound · outbound · ads · evento)
+- `Combo/Escopo` (dropdown — **define qual template carrega no Ganho**)
+- `Valor do contrato` · `Decisor` (nome + contato) · `Data de entrada` · `Probabilidade` (auto por etapa)
+- `Motivo de Perda` (quando Perdido) · `Tentativas de fechamento` (contador de reengajamento)
+
+> Os dados cadastrais e de contato preenchem a **Ficha do Cliente** automaticamente na virada. Os campos que o onboarding precisa (decisor, contatos, combo) têm que estar completos **antes** de "Contrato Assinado" — senão o cliente nasce cego. Isto fecha o *pacote de handover* que estava aberto como ponte Comercial↔Operação.
+
+### Automação da virada (Ganho → cliente)
+
+- **Gatilho:** status → `Contrato Assinado`.
+- **Ação (notificação, não criação automática):** a automação **notifica a Mariana** (menção/responsável) e **posta no grupo de Operação da Fibbo** que o Cliente X fechou. A partir dessa notificação, **a Mariana aplica o template** da pasta do cliente conforme o `Combo`, e os dados do lead (decisor, contatos, combo, valor) alimentam a Ficha do Cliente.
+- **Por que assim:** notificação e mensagem em grupo são nativas do ClickUp (menção + integração Slack; WhatsApp via integração). Criar uma Folder inteira a partir de template *via automação* nativa não é garantido — então o gatilho **avisa** e a aplicação do template é um passo humano de um clique. Confiável e sem prometer mágica.
+
+### Métricas e dashboards
+
+Para medir, o card registra: etapa atual, **datas de mudança de etapa**, valor, origem, responsável, motivo de perda. Com isso, os dashboards:
+
+- **Funil** — nº de leads e valor por etapa
+- **Conversão etapa→etapa** — onde o funil vaza
+- **Win rate** — Ganho / total fechado
+- **Ciclo de venda** — tempo médio lead→Ganho e tempo por etapa
+- **Pipeline value + forecast ponderado** — valor × probabilidade
+- **Ticket médio**
+- **Motivos de perda** — por que perdemos
+- **Taxa de recuperação** — reengajado (Perdido/Nutrição) → Ganho; e quais leads/origens exigem mais tentativas
+- **Performance por vendedor** — Danilo × Ronaldo
+- **Leads por origem** — qual canal converte
+
+### Como montar cada dashboard (widget · campos · config)
+
+Cards do ClickUp (pizza/barra/bateria por status ou campo, Cálculo, Tempo no Status, Cumulative Flow). Fonte de dados = Space Comercial.
+
+| Métrica | Widget ClickUp | Campos necessários | Como configurar |
+|---|---|---|---|
+| **Funil — nº por etapa** | Tarefas por Status (barra) | `Status` | Agrupar por Status, contagem; ordenar barras na ordem do funil |
+| **Funil — valor por etapa** | Gráfico de barras (soma) | `Status`, `Valor` | Agrupar por Status; valor = **soma** de `Valor do contrato` |
+| **Conversão etapa→etapa** | Cálculo por etapa + barras | checkboxes `Passou: [etapa]` + automações | **Nota 1** |
+| **Win rate** | Pizza ou Cálculo (%) | `Status` | Pizza `Ganho × Perdido`; ou Cálculo `count(Ganho) / count(fechados)` no período |
+| **Ciclo de venda** | Tempo no Status + Cálculo | tempo-em-status, `Data de entrada`, data do Ganho | **Nota 2** |
+| **Pipeline + forecast** | Cálculo (soma) + Formula field | `Valor`, `Probabilidade` | Formula `Valor × Probabilidade` → **soma** = forecast; soma de `Valor` = pipeline bruto |
+| **Ticket médio** | Cálculo (média) | `Valor`, `Status` | Média de `Valor` filtrando `Status = Ganho` |
+| **Motivos de perda** | Pizza / barras | `Motivo de Perda`, `Status` | Agrupar por `Motivo de Perda`, filtro `Status = Perdido`, contagem |
+| **Taxa de recuperação** | Cálculo (%) | `Tentativas de fechamento`, `Status` | `count(Ganho com Tentativas ≥ 1) / count(leads reengajados)` |
+| **Performance por vendedor** | Barras (por responsável) | `Responsável`, `Status`, `Valor` | Agrupar por `Responsável comercial`: nº de ganhos e soma de `Valor` |
+| **Leads por origem** | Pizza (volume) + barras (conversão) | `Origem`, `Status` | Pizza por `Origem`; win rate por origem = cruzar `Origem × Ganho` |
+
+**Pré-requisitos (criar antes dos dashboards):**
+- `Probabilidade` (número, campo do card do lead) **auto-setado por etapa via automação** — o vendedor só move o card, a % se ajusta. Mapa proposto: Novo **5%** · Qualificação **10%** · Contato **20%** · Diagnóstico **30%** · Proposta **50%** · Negociação **70%** · Ganho **100%** · Perdido **0%** · Nutrição **5%**. Começa com esses palpites e, quando houver dados da **Nota 1 (conversão real)**, substitui pela conversão medida — o forecast deixa de ser chute e vira histórico. Sem esse campo, não há forecast ponderado.
+- Ativar **tempo-em-status** no Space (para ciclo de venda).
+- `Motivo de Perda`, `Origem`, `Combo` como **dropdowns padronizados** (texto livre não agrega em gráfico).
+
+**Nota 1 — Conversão por etapa (mecânica detalhada).** O ClickUp mostra *quantos cards estão em cada status agora* — foto do momento, não conversão. Quando um lead avança de Qualificação para Diagnóstico, ele **sai** de Qualificação, então a contagem por status atual não responde "de cada 10 qualificados, quantos viraram proposta?". Conversão precisa de **quantos leads JÁ PASSARAM por cada etapa** (número que nunca diminui quando o lead avança).
+
+*Como capturar:* um **checkbox `Passou: [etapa]` por etapa** + uma **automação por etapa** — *quando o status muda para "Diagnóstico" → marcar `Passou: Diagnóstico`*. A automação **só marca, nunca desmarca**: o lead que chegou na Negociação mantém todos os checkboxes de trás marcados; o perdido na Proposta guarda os checkboxes até a Proposta.
+
+```mermaid
+flowchart LR
+    S["Status muda para<br/>etapa N"] -->|automação| CK["Marca checkbox<br/>Passou: N (não desmarca)"]
+    CK --> CALC["Card de Cálculo<br/>conta Passou: N"]
+    CALC --> CONV["Conversão N→N+1<br/>= Passou(N+1) / Passou(N)"]
+```
+
+*Exemplo (5 leads):* Passou Qualif = 5 · Diag = 4 · Prop = 3 · Nego = 2 · Ganho = 1 → conversões: Qualif→Diag **80%**, Diag→Prop **75%**, Prop→Nego **67%**, Nego→Ganho **50%** (aqui o funil vaza mais no fechamento).
+
+*Widgets:* cada etapa vira um card de **Cálculo** contando os cards com o checkbox marcado; a razão entre etapas (a conversão) sai de um **Formula field** ou lida lado a lado.
+
+*Sobre o desenho do funil num gráfico só:* como são checkboxes **separados**, eles viram N cards de contagem — **não** uma barra única (correção do que estava antes). Para o funil num widget só, dois caminhos: (a) um campo **multi-select `Etapas percorridas`** onde a automação **adiciona** a etapa a cada entrada, e um gráfico de barras agrupado por ele conta o card em cada rótulo → funil num widget *(confirmar no build se a automação do ClickUp adiciona rótulo a multi-select; se não, ficam os checkboxes)*; ou (b) o card nativo **Cumulative Flow**, que dá o formato de funil como evolução no tempo. Resumo: **checkbox + automação = os números da conversão**; **multi-select ou Cumulative Flow = o desenho do funil**.
+
+**Nota 2 — Ciclo de venda:** o card **Tempo no Status** dá o tempo médio *por etapa* direto. Para o **ciclo total** (lead → Ganho), um **Formula field** = `data do Ganho − Data de entrada`, e um card de **Cálculo (média)** desse campo. (Formula field, Tempo no Status e Cumulative Flow são **Business+** — já no nosso plano.)
+
+### Retenção = reengajamento de lead não-fechado
+
+Aqui "retenção" significa **tentar de novo fechar um lead que ainda não fechou** — não é retenção pós-venda. Leads em `Perdido` ou `Nutrição` são **reengajados** e voltam ao funil ativo, com `Tentativas de fechamento` +1. Isso vira a **taxa de recuperação** (acima). *(A renovação pós-venda de contrato é outra coisa e continua no lado Operação — D9.)*
+
+---
+
+# ANEXO G · Blocos de entrega por serviço + templates por combo
+
+## O modelo: template de combo = camada GP universal + blocos de serviço
+
+Dois níveis:
+- **Camada de Gestão de Projetos (universal):** Onboarding · Cadência de Relatórios · Status Report · Offboarding · Atendimento (balde). Todo cliente recebe **uma vez**, independente do combo — é o "Atendimento (CS) conta 1×". Detalhada no Anexo E.
+- **Blocos de entrega (por serviço, no Backlog):** um pacote por serviço contratado. O **combo** define quais carregam.
+
+**Template de um combo = camada GP + os blocos dos serviços do combo.** Ex.: o template **Fibbo Leads** nasce com a camada GP + os blocos **FibboMetrics + Leads + Hospedagem**. Um cliente com 1 serviço e um com 5 têm a mesma camada GP; só muda o Backlog.
+
+## Matriz combo × serviço
+
+`PER` Performance · `CON` Conteúdo · `FM` FibboMetrics **(sempre)** · `SG` SEO·GEO · `SIT` Site · `LEA` Leads · `HOS` Hospedagem · `GP`/ATD **(sempre)**.
+
+| Combo (preset) | PER | CON | FM | SG | SIT | LEA | HOS | GP |
+|---|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| **Brandformance (tudo)** | ● | ● | ● | ● | ● | ● | ● | ● |
+| **Fibbo Leads** | | | ● | | | ● | ● | ● |
+| **Autoridade** (Conteúdo+SEO+Metrics) | | ● | ● | ● | | | | ● |
+| **Performance + Metrics** | ● | | ● | | | | | ● |
+| **Só FibboMetrics** | | | ● | | | | | ● |
+
+**FM e GP/ATD são constantes** (em todos os combos). O combo varia os demais. São 5 presets padrão, mas o sistema é **modular** — dá para montar um contrato custom marcando serviços à mão.
+
+### Templates por combo (o que cada um carrega)
+
+Cada template = **camada GP universal** (Anexo E) + os blocos de serviço marcados:
+
+- **Template Brandformance** → GP + Performance + Conteúdo + FibboMetrics + SEO·GEO + Site + Leads + Hospedagem *(todos)*
+- **Template Fibbo Leads** → GP + FibboMetrics + Leads + Hospedagem
+- **Template Autoridade** → GP + Conteúdo + SEO·GEO + FibboMetrics
+- **Template Performance + Metrics** → GP + Performance + FibboMetrics
+- **Template Só FibboMetrics** → GP + FibboMetrics
+
+## Conexão GP ↔ Backlog (de/para · sem duplicação)
+
+O Backlog levanta dado **isolado por área**; a GP **conecta as áreas pensando no cliente**. Não há tarefa repetida — são tarefas distintas ligadas por **dependência**.
+
+| Cadência | Executável no Backlog (por área) | Síntese/reunião na GP (holística) | Conexão |
+|---|---|---|---|
+| **Semanal** | ANALISAR canal + enviar bullets ao CS (Dia de Otimização, cada área) | CONSOLIDAR + enviar resumo semanal (check-in sexta · 17h) | GP consome os bullets das áreas |
+| **Mensal** | PRODUZIR o Pulse (FibboMetrics) | REALIZAR reunião mensal de resultados | a reunião consome o Pulse |
+| **Trimestral** | PRODUZIR o Panorama (FibboMetrics) | REALIZAR revisão trimestral | a revisão consome o Panorama |
+
+**Regra:** verbo de produção → **Backlog**; reunião/consolidação/contato → **GP**. Não se cria tarefa genérica "produzir material da reunião" — o **Pulse/Panorama já é o material**. O único executável de síntese que a GP faz é o **consolidado semanal**, porque não existe "Pulse semanal" — alguém tem que conectar os bullets das áreas.
+
+## Blocos de serviço (Backlog · verbos · 1 tarefa/linha · materializado a 1 ano · D7)
+
+> **Nomenclatura:** `VERBO objeto · [cadência+sequência]`. Cadência em letra (`S` semanal · `M` mensal · `T` trimestral · `F` fase · `R` renovação), sequência **contínua** no ano (`S01…S52`, `M01…M12`, `T1…T4`). O sufixo é a **faixa de instâncias** que a tarefa materializa. `[colchetes]` = cadência ainda a calibrar.
+
+### 📦 Performance (Mídia Paga) · `Pacote`
+**Trimestral ×4** (pós-Panorama)
+- [ ] CONSTRUIR Plano de Mídia + deck do trimestre · T1…T4
+- [ ] SUBMETER à aprovação do dono (porta) · T1…T4
+- [ ] APRESENTAR plano ao cliente + registrar seleção · T1…T4
+- [ ] CONSOLIDAR o trimestre (1 linha por sub) · T1…T4
+
+**Mensal ×12**
+- [ ] PRODUZIR criativos do mês (Dia de Produção) · M01…M12
+- [ ] RODAR coleta do mês — Canal 2 (28→fim) · M01…M12
+- [ ] PRODUZIR a seção C2 do Pulse (01–05) · M01…M12
+
+**Semanal ×52**
+- [ ] ANALISAR o canal + ajustar/recomendar + enviar 3 bullets ao CS (Dia de Otimização) · S01…S52
+- [ ] CICLAR Fast Campaigns (testar 1 → promover/pausar) · [semanal/quinzenal · a definir]
+
+### 📦 Conteúdo (Social/Orgânico) · `Pacote`
+**Trimestral ×4**
+- [ ] CONSTRUIR Plano Editorial Trimestral + deck · T1…T4
+- [ ] SUBMETER à aprovação do dono + registrar seleção · T1…T4
+
+**Mensal ×12** (defasado M-1)
+- [ ] GERAR banco da LE (funil 5×→3×) · M01…M12
+- [ ] ENTREGAR a LE ao cliente para aprovação (dia 20) · M01…M12
+- [ ] PUBLICAR a LE aprovada (15–19) · M01…M12
+- [ ] GRAVAR Reels em lote (Dia de Gravação) · M01…M12
+- [ ] PRODUZIR a seção Social C1 do Pulse · M01…M12
+- [ ] PUBLICAR + rodar rotação de Stories · [por calendário]
+
+**Semanal ×52**
+- [ ] ANALISAR desempenho dos posts + ajustar + enviar bullets ao CS (Dia de Otimização) · S01…S52
+- [ ] RESPONDER comunidade (comentários/DMs) · [contínuo/diário · a definir]
+
+### 📦 FibboMetrics (inteligência) · `Pacote`
+**Mensal ×12** (Pulse · entrega dia 05)
+- [ ] EXECUTAR pré-flight da edição (dia 27) · M01…M12
+- [ ] RODAR coleta + validação (28→01) · M01…M12
+- [ ] PRODUZIR o Pulse seção-a-seção (porta do dono · 01–05) · M01…M12
+- [ ] RENDERIZAR + rodar QA · M01…M12
+- [ ] ENTREGAR o Pulse no grupo (dia 05) · M01…M12
+
+**Trimestral ×4** (Panorama · substitui o Pulse no mês do tri)
+- [ ] DISPARAR panorama-trigger (dia 28 · Mar/Jun/Set/Dez) · T1…T4
+- [ ] PRODUZIR o Panorama (01–10) · T1…T4
+- [ ] ENTREGAR o Panorama (dia 10) + abrir planos de canal (passo 5.5) · T1…T4
+- [ ] EXECUTAR manutenção trimestral (atores/fallbacks) · T1…T4
+
+**Semanal ×52**
+- [ ] EXECUTAR o ritual semanal do FibboMetrics · S01…S52
+
+### 📦 SEO·GEO · `Pacote`
+**Trimestral ×4**
+- [ ] CONSTRUIR Plano SEO+GEO do trimestre (pós-Panorama) · T1…T4
+
+**Mensal ×12** (defasado M-1)
+- [ ] GERAR recomendações on-page do mês · M01…M12
+- [ ] ENTREGAR artigos ao cliente para aprovação (dia 20) · M01…M12
+- [ ] RE-MEDIR mention rate + SERP (28→fim) · M01…M12
+- [ ] PRODUZIR as seções C5+C6 do Pulse · M01…M12
+
+**Semanal ×52**
+- [ ] ANALISAR rankings/mention rate/indexação + enviar bullets ao CS (Dia de Otimização) · S01…S52
+
+### 📦 Site · `Pacote` (POR FASES · cada fase fecha numa porta do dono · sem cadência mensal)
+- [ ] REALIZAR briefing / kickoff do projeto · F1
+- [ ] CONSTRUIR wireframe / arquitetura · F2
+- [ ] ESCREVER a copy · F3
+- [ ] DESENHAR o layout / design · F4
+- [ ] DESENVOLVER (dev) · F5
+- [ ] EXECUTAR o go-live · F6
+- [ ] REALIZAR pós / desfecho · F7
+
+### 📦 Leads (Canal 8) · `Pacote`
+**Mensal ×12** (defasado)
+- [ ] PLANEJAR o mês + ESCREVER a copy dos e-mails (05–10) · M01…M12
+- [ ] DISPARAR + segmentar · M01…M12
+- [ ] MEDIR o canal (métrica honesta) · M01…M12
+- [ ] PRODUZIR a seção Canal 8 do Pulse · M01…M12
+- [ ] MANTER a lista (instanciar o mês · dia 01) · M01…M12
+
+**Semanal ×52**
+- [ ] ANALISAR entrega/abertura/descadastro + enviar bullets ao CS (Dia de Otimização) · S01…S52
+
+**Condicional** (a validar)
+- [ ] CONFIGURAR automação / WhatsApp / inbox / CRM · [condicional · a validar]
+
+### 📦 Hospedagem · `Pacote` (recorrente materializado + camada reativa · sem relatório ao cliente)
+**Mensal ×12**
+- [ ] REVISAR saúde da infra (uptime · recursos · patches · backups) · M01…M12
+
+**Trimestral ×4**
+- [ ] EXECUTAR restore test (restauração de backup) · T1…T4
+
+**Por renovação** (data-driven · escada 60/30/15/7)
+- [ ] AVISAR renovação — D-60 · R1
+- [ ] AVISAR renovação — D-30 · R2
+- [ ] AVISAR renovação — D-15 · R3
+- [ ] AVISAR renovação — D-7 · R4
+
+**Reativo** (não materializa · condicional)
+- [ ] RESOLVER incidente P0–P3 · [reativo · por gatilho]
+- [ ] EXECUTAR migração de entrada · [reativo · por gatilho]
+- [ ] EXECUTAR migração de saída · [reativo · por gatilho]
+
+### Atendimento (CS) — sempre na camada GP (Anexo E)
+Não é bloco de Backlog. Mapeia para Onboarding · Cadência de Relatórios · Status Report · Offboarding · Atendimento (balde). A síntese que conecta as áreas (consolidado semanal, reuniões) mora aqui.
+
+## Notas estruturais
+1. **A camada GP + FibboMetrics são o custo fixo do cliente; os demais blocos são o variável do combo.** Confirma a arquitetura de dois níveis.
+2. **Balde vs. Pacote = planejável vs. imprevisível.** Default é `Pacote` com o recorrente materializado; `Balde` só para o resíduo imprevisível — na prática, só o Atendimento. Site é Pacote que fecha no desfecho; Hospedagem é Pacote com camada reativa.
+3. **Cadência defasada = só data de tarefa.** O template carrega com os due dates relativos (produzir = M-1, publicar = M); o ajuste fino sai na planning.
+4. **GP não duplica o Backlog — consome.** Backlog = executável isolado por área (verbo de produção); GP = síntese holística do cliente (reunião/consolidação). Ligados por dependência. Pulse/Panorama são os executáveis da reunião mensal/trimestral; o consolidado semanal é o único executável de síntese da GP.
+
+## A fechar
+- Calibrar as cadências marcadas `[a definir]` (Fast Campaigns, Comunidade, condicionais) antes de materializar.
+- Detalhe fino de horas por serviço (está nos manuais do documento-fonte) — segunda passada.
+
+---
+
+# SESSÃO DE DOUBLE CHECK · Tasks validadas pelos times
+
+> Tasks revisadas e aprovadas área por área. Esta seção é a fonte de verdade para montagem dos templates no ClickUp. Data de validação: 2026-08-05.
+
+---
+
+## Onboarding · tasks validadas
+
+📦 **Pacote Onboarding** — instância única · fecha ao fim da fase intensiva
+
+| # | Task | Responsável |
+|---|---|---|
+| 1 | Aplicar template da pasta padrão do cliente | Gestão de Projetos |
+| 2 | Realizar reunião de handoff interno | Atendimento |
+| 3 | Montar material de reunião de kickoff (interno e externo) | Atendimento |
+| 4 | Marcar reunião de kickoff | Atendimento |
+| 5 | Realizar kickoff externo | Atendimento + CEO + Gestão de Projetos |
+| 6 | Preencher Briefing Zero com o cliente | Atendimento |
+| 7 | Solicitar ao cliente contexto de marca aplicado | Atendimento |
+| 8 | Criar pasta no Drive | Atendimento |
+| 9 | Validar acessos às plataformas | Atendimento |
+
+**Check-ins diários · Raia CS** *(checklist dentro do Pacote — não tasks separadas)*
+- Check-in diário · S1.1 · S1.2 · S1.3 · S1.4 · S1.5
+- Check-in diário · S2.1 · S2.2 · S2.3 · S2.4 · S2.5
+- Check-in diário · S3.1 · S3.2 · S3.3 · S3.4 · S3.5
+- Check-in diário · S4.1 · S4.2 · S4.3 · S4.4 · S4.5
+
+> **Emitir e enviar TAP** — removido por enquanto. Reavaliar na próxima passada.
+
+---
+
+## Atendimento · tasks validadas
+
+### Tasks de processo · planejadas · materializam no template
+
+**Semanal · S01…S09** *(MVP · 3 meses · expandir para S01…S36 no ano completo)*
+
+| Task | Responsável |
+|---|---|
+| CONSOLIDAR + enviar resumo semanal | Performance |
+| VALIDAR envio semanal | Atendimento |
+
+**Mensal · M01…M03** *(MVP · 3 meses · expandir para M01…M12 no ano completo)*
+
+| Task | Responsável |
+|---|---|
+| CONSOLIDAR material de resultados mensais | Performance |
+| VALIDAR material de resultados mensais | CEO |
+| AGENDAR reunião mensal de resultados | Administrativo |
+| REALIZAR reunião mensal de resultados | CEO + Atendimento + Gestão de Projetos |
+| COLETAR NPS do mês | Atendimento |
+
+**Trimestral · T1** *(MVP · 3 meses · expandir para T1…T4 no ano completo)*
+
+| Task | Responsável |
+|---|---|
+| CONSOLIDAR material de resultados trimestral | Performance |
+| VALIDAR material de resultados trimestral | CEO |
+| AGENDAR reunião trimestral de resultados | Administrativo |
+| REALIZAR reunião trimestral de resultados | CEO + Atendimento + Gestão de Projetos |
+
+**Offboarding · instância única**
+
+| Task | Responsável |
+|---|---|
+| Validar se todas as tarefas do ClickUp estão concluídas | — |
+| Validar se há alguma entrega pendente para o cliente | — |
+| Realizar reunião final de encerramento do projeto com o cliente | Atendimento |
+| Realizar reunião interna de encerramento (lições aprendidas) | — |
+| Transferir/entregar acessos e assets ao cliente | — |
+| Emitir documentação de encerramento / relatório final | — |
+| Financeiro: acerto final e última NF | — |
+| REALIZAR pesquisa de saída / NPS final | Atendimento |
+| Encerrar o Drive do cliente e mover para arquivados | — |
+| Arquivar a pasta/estrutura do cliente no ClickUp | — |
+
+> ~~Consolidar entregas finais e organizar handover de materiais~~ — removido na validação.
+
+---
+
+### Tasks reativas · 🪣 Balde de Atendimento
+
+> Cada solicitação nasce como **task mãe** + subtasks padrão. O balde nunca fecha.
+
+**🏷️ Task mãe**
+`Solicitação: [descrição breve] — [Cliente]`
+Tipo: `Atendimento` · Categoria: `[ver abaixo]` · Priority: `[ver abaixo]`
+
+**Subtasks · Fluxo Suporte**
+- [ ] Classificar: Categoria + Priority aplicados
+- [ ] Triagem: Suporte — resolve no balde
+- [ ] Acionar área responsável + definir prazo interno *(se necessário)*
+- [ ] Posicionar o cliente: resposta ou solução
+- [ ] Confirmar resolução com o cliente
+- [ ] Fechar card
+
+**Subtasks · Fluxo Escopo Extra**
+- [ ] Classificar: Categoria + Priority aplicados
+- [ ] Triagem: Escopo extra — não resolve no balde
+- [ ] Levantar escopo + prazo com a área responsável
+- [ ] Retornar proposta ao cliente → `Aguardando Cliente`
+- [ ] Aprovação recebida → promover ao Backlog
+- [ ] Comunicar ao cliente que entrou na esteira
+
+---
+
+### Categorias · campo `Categoria`
+
+| Categoria | Quando usar | Destino |
+|---|---|---|
+| `Ajuste em entrega` | Revisão de peça já entregue | Suporte |
+| `Pedido novo / escopo extra` | Trabalho fora do combo | Escopo extra → Backlog |
+| `Dúvida / esclarecimento` | Pergunta ou explicação | Suporte |
+| `Urgência` | Qualquer situação com impacto financeiro direto ao cliente — campanha rodando com erro, site fora, chat parado, etc. | Suporte · prioridade máxima · acionar área imediatamente |
+| `Reclamação / problema` | Insatisfação · risco de churn | Suporte · escalar CS |
+| `Dado / relatório extra` | Informação fora do padrão | Suporte |
+| `Administrativo` | Contrato, financeiro, fiscal, NF, dados cadastrais | Suporte · acionar Administrativo |
+| `Problema sistêmico` | Falha em ferramenta, plataforma ou automação | Suporte · acionar área técnica |
+
+---
+
+### Priority · SLA
+
+| Priority | Prazo |
+|---|---|
+| `Urgente` | Mesmo dia |
+| `Alta` | Até 24h |
+| `Normal` | Até 2 dias úteis |
+| `Baixa` | Sem prazo crítico |
+
+---
+
+### Status · set de Operação
+
+`A Fazer` → `Triagem` → `Em Execução` → `Ajustes` → `Aguardando Cliente` → `Bloqueado` → `Concluído` (+ `Cancelado`)
+
+---
 
 ---
 

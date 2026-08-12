@@ -410,9 +410,169 @@ Saldo por Área = Capacity Líquida da Área - Soma das H/mês de todos os contr
 
 ---
 
-## 6. Mapeamento de Automações por Etapa
+## 6. Fluxos Operacionais por Serviço
 
-### 6.1 Automações nativas do ClickUp (sem código)
+Documentação dos fluxos de entrega por tipo de serviço. Esses fluxos informam o **Catálogo de Escopos** (§5.3), a **Hipótese de Estrutura** (§9) e o que precisa ser **automatizado** (§7).
+
+---
+
+### 6.1 Site
+
+**Fase 1 — Briefing & Estrutura**
+1. Gerar consolidação briefing zero + briefing do site — *Gestão de Projetos*
+2. Analisar cliente
+3. Gerar referências
+4. Construir estrutura do site
+
+**Fase 2 — Aprovação Interna**
+5. Liberar para aprovação interna
+6. Realizar aprovação interna — *Gestão de Projetos*
+
+**Fase 3 — Aprovação Externa (Layout)**
+7. Liberar aprovação externa *(critério de sucesso: link do Figma + PDF)*
+8. Realizar aprovação externa — *Cliente*
+9. Realizar reunião de alinhamento — Brainstorming de Alterações
+10. Gerar alterações solicitadas pelo cliente
+11. Liberar para aprovação externa novamente
+12. Realizar aprovação externa — *Cliente*
+
+**→ Se Aprovado — Desenvolvimento**
+
+> ⚠ **Predecessora obrigatória:** Validar acesso ao domínio / hospedagem — *Danilo (Atendimento)*, via Briefing Zero
+
+13. Realizar desenvolvimento do layout (site)
+14. Liberar para aprovação externa — *Cliente*
+
+> ⚙ **Automação:** O desenvolvimento só inicia quando o layout é finalizado. Se retornar para layout, uma nova task é criada no time de conteúdo e o desenvolvimento fica bloqueado até a conclusão.
+
+15. Realizar aprovação externa — *Cliente*
+16. Realizar migração do site (colocar em produção)
+17. Realizar instalação de tags dentro do site (Meta e outros)
+18. Realizar aplicação do SEO onpage do site
+19. Realizar integrações específicas (CRM, formulários, outros)
+20. Realizar cadastro de monitoramento do site
+21. Atuar em caso de alerta de monitoramento *(ação reativa)*
+22. Realizar treinamento do cliente
+
+**Solicitações Extras — via Atendimento**
+
+| Solicitação |
+|---|
+| Alteração de banner |
+| Alteração de texto |
+| Cadastro de produto |
+| Cadastro de serviço |
+| Alteração de número (WhatsApp / telefone) |
+| Alteração de preço |
+| Adição de blog |
+
+---
+
+### 6.2 Landing Page
+
+Segue o **mesmo processo do Site** (§6.1) — da fase de briefing zero ao desenvolvimento e entrega. Aplica-se também ao fluxo de Sistemas e Automações.
+
+---
+
+### 6.3 E-mail
+
+**Copy & Design**
+1. Realizar planejamento da copy
+2. Realizar execução da copy *(ao encerrar, transferir para o time de Design)*
+3. Planejar design do e-mail
+4. Executar design do e-mail — montar no Figma
+5. Configurar no Mautic — *Sistemas*
+6. Incluir link de preview do e-mail
+
+**Aprovação**
+7. Enviar para validação interna
+8. Enviar para aprovação externa — *Cliente*
+
+> ↩ Se houver correção: retorna para alteração (steps 2–8). Se aprovado: segue para Sistemas.
+
+**→ Se Aprovado — Automação de Disparo**
+9. Validar funcionamento do link do e-mail — *Sistemas*
+10. Programar disparo para todos os e-mails registrados no Mautic — *Sistemas*
+
+> ℹ **Briefing Zero:** a programação dos disparos deve ser planejada antecipadamente. Tarefas recorrentes de calendário devem ser criadas por cliente na gestão de projetos.
+
+---
+
+### 6.4 Redes Sociais
+
+> ℹ **Estrutura por cliente:** Linha Editorial → Post 1 (Copy + Design) → Post 2 → ... Entregas fora de linha editorial: site, landing page, e-mail.
+
+**Copy & Planejamento**
+1. Planejamento da copy
+2. Gerar documento / banco de ideias
+3. Planejar linha editorial (tipo de postagens, frequência, formatos)
+4. Realizar ensaios (fotos e outros conteúdos visuais)
+5. Realizar copy (legendas e demais textos)
+6. Revisão da copy — *(⚠ avaliar se etapa será mantida no fluxo)*
+
+**Design & Aprovação**
+7. Planejar design
+8. Desenvolver linha editorial (copy + design integrado)
+9. Desenvolver design
+10. Montar apresentação no Canva
+11. Liberar aprovação externa
+12. Realizar aprovação externa — *Cliente*
+13. Realizar revisão com as alterações solicitadas pelo cliente
+14. Realizar publicações
+
+---
+
+### 6.5 Criativos
+
+1. Realizar copy
+2. Realizar design
+3. Aprovação interna e externa
+4. Realizar publicação no Meta Ads (campanha de performance) — *Sistemas*
+
+---
+
+### 6.6 Manutenção — Sistemas & Automações
+
+**Auditoria Bimestral**
+1. Realizar auditoria bimestral de SEO — *Sistemas & Automações*
+   - 1.1 Validar auditoria bimestral de SEO — *Fabrício*
+2. Realizar auditoria de performance e segurança dos sites — *Sistemas & Automações*
+   - 2.1 Validar auditoria de performance e segurança — *Fabrício*
+
+**Recorrência Semanal**
+3. Atualizar sistemas internos — *Sistemas & Automações*
+
+---
+
+### 6.7 Performance & Relatórios
+
+**Relatórios de Performance**
+1. Validar envio do relatório semanal — *Danilo (Atendimento)*
+
+> ℹ **Incluir no onboarding do cliente:**
+> 1. Validar com Fabrício as métricas do cliente
+> 2. Configurar automação de envio do relatório baseada nas métricas definidas
+>
+> **Briefing Zero:** definir grupo de WhatsApp e métricas de performance para a automação de relatórios.
+
+**Automação de Relatórios de Saldos (Internos)**
+2. Construir automação dos relatórios de saldos internos — *Sistemas & Automações*
+
+> ↻ Mesmo processo aplica-se para relatórios mensais e trimestrais.
+
+**Gestão de Campanhas**
+3. Validar checagem de saldos das campanhas
+4. Realizar ajustes de campanha
+
+> ⚠ **Pendente — fechar com Guilherme e Fabrício:**
+> - Definir separação de tarefas por ciclo de vida do cliente
+> - Distinguir fluxo de monitoramento do fluxo de melhoria contínua semanal (otimização de campanha)
+
+---
+
+## 7. Mapeamento de Automações por Etapa
+
+### 7.1 Automações nativas do ClickUp (sem código)
 
 | Gatilho | Ação | Etapa do fluxo |
 |---|---|---|
@@ -425,7 +585,7 @@ Saldo por Área = Capacity Líquida da Área - Soma das H/mês de todos os contr
 | Tarefa de Ticket fechada | Envia email de confirmação ao solicitante (via integração) | Suporte |
 | Última tarefa do template de onboarding concluída | Notifica que onboarding foi concluído + muda "Fase" para "Ativo" | Fim do onboarding |
 
-### 6.2 Automações externas (Make / n8n)
+### 7.2 Automações externas (Make / n8n)
 
 | Gatilho | Ação | Ferramenta |
 |---|---|---|
@@ -436,7 +596,7 @@ Saldo por Área = Capacity Líquida da Área - Soma das H/mês de todos os contr
 | Fim do mês | Cria tarefas de relatório mensal para cada cliente ativo | Make |
 | Relatório de saldo de ads acima do limite | Notifica Gestor de Tráfego + Fabricio via WhatsApp/Slack | Make + Meta/Google API |
 
-### 6.3 O que NÃO automatizar ainda
+### 7.3 O que NÃO automatizar ainda
 
 - Relatórios de performance (aguardar estabilização da nova stack Meta/Google API)
 - Qualquer coisa que dependa de aprovação humana com julgamento (ex.: classificação de saúde do cliente)
@@ -444,9 +604,9 @@ Saldo por Área = Capacity Líquida da Área - Soma das H/mês de todos os contr
 
 ---
 
-## 7. Dashboards a Criar
+## 8. Dashboards a Criar
 
-### 7.1 Dashboard Executivo (Fabricio)
+### 8.1 Dashboard Executivo (Fabricio)
 
 **Objetivo:** visão rápida do portfólio e saúde do negócio
 
@@ -458,7 +618,7 @@ Saldo por Área = Capacity Líquida da Área - Soma das H/mês de todos os contr
 | Contratos próximos do vencimento | Lista com data e responsável |
 | Tickets em aberto | Contagem e prazo médio de resolução |
 
-### 7.2 Dashboard Operacional (Mariana / Lideranças de área)
+### 8.2 Dashboard Operacional (Mariana / Lideranças de área)
 
 **Objetivo:** acompanhar entregas e andamento dos processos
 
@@ -470,7 +630,7 @@ Saldo por Área = Capacity Líquida da Área - Soma das H/mês de todos os contr
 | Onboardings em andamento | Clientes em onboarding e % de conclusão |
 | Tickets por tipo e status | Aberto / Em Atendimento / Resolvido (por área) |
 
-### 7.3 Dashboard de Capacity (para tomada de decisão comercial)
+### 8.3 Dashboard de Capacity (para tomada de decisão comercial)
 
 **Objetivo:** responder se a Fibbo tem espaço para novo contrato
 
@@ -482,11 +642,11 @@ Saldo por Área = Capacity Líquida da Área - Soma das H/mês de todos os contr
 
 ---
 
-## 8. Hipótese de Estrutura no ClickUp (TO BE)
+## 9. Hipótese de Estrutura no ClickUp (TO BE)
 
 *Hipótese de design fundamentada — será validada e refinada após as entrevistas. Não é decisão fechada, é o ponto de partida para a conversa.*
 
-### 8.1 A decisão estrutural central
+### 9.1 A decisão estrutural central
 
 Toda reestruturação de ClickUp em agência começa pela mesma pergunta:
 
@@ -497,7 +657,7 @@ Não existe resposta universalmente certa. Existe a resposta certa para o modelo
 
 ---
 
-### 8.2 Os dois modelos explicados
+### 9.2 Os dois modelos explicados
 
 #### Modelo A — Estrutura por departamento (eixo funcional)
 
@@ -536,7 +696,7 @@ O cliente é a pasta. Os processos departamentais existem como listas e campos d
 
 ---
 
-### 8.3 Por que o modelo por cliente é o certo para a Fibbo
+### 9.3 Por que o modelo por cliente é o certo para a Fibbo
 
 **A pergunta-chave é: qual é a unidade de valor da Fibbo?**
 
@@ -548,7 +708,7 @@ A estrutura por cliente resolve isso estruturalmente, não por gambiarra de camp
 
 ---
 
-### 8.4 Benefícios do modelo por cliente para a Fibbo
+### 9.4 Benefícios do modelo por cliente para a Fibbo
 
 **1. Visibilidade completa e instantânea por cliente**
 Tudo que envolve o cliente X está numa pasta: onboarding, entregas em andamento, tickets abertos, histórico, campos de contrato, saúde da conta. Fabricio abre uma pasta e enxerga o cliente inteiro — sem vasculhar 12 listas de departamentos e montar o quadro mentalmente. Isso vale especialmente para reuniões de CS, check-ins e conversas comerciais sobre renovação ou expansão de escopo.
@@ -576,7 +736,7 @@ O template de onboarding (que hoje possivelmente não está sendo usado, conform
 
 ---
 
-### 8.5 Riscos e como mitigá-los
+### 9.5 Riscos e como mitigá-los
 
 #### Risco 1 — Área operacional perde visão do próprio backlog
 
@@ -606,7 +766,7 @@ A Camilly abre a view de Social Media e vê sua fila completa. O Fabricio abre a
 
 ---
 
-### 8.6 Quando o modelo departamental faria sentido (e por que não é o caso da Fibbo)
+### 9.6 Quando o modelo departamental faria sentido (e por que não é o caso da Fibbo)
 
 | Critério | Modelo departamental | Modelo por cliente | Fibbo |
 |---|---|---|---|
@@ -620,7 +780,7 @@ A Fibbo não tem volume alto o suficiente para justificar o modelo departamental
 
 ---
 
-### 8.7 Hipótese de hierarquia
+### 9.7 Hipótese de hierarquia
 
 ```
 Workspace Fibbo
@@ -663,7 +823,7 @@ Workspace Fibbo
 
 ---
 
-### 8.8 Como os departamentos sobrevivem nesse modelo
+### 9.8 Como os departamentos sobrevivem nesse modelo
 
 Os departamentos não desaparecem — eles passam a ser uma **dimensão de filtro**, não um eixo de estrutura.
 
@@ -679,7 +839,7 @@ A view de cada área fica num **dashboard de operação** que filtra tarefas por
 
 ---
 
-### 8.9 O que as entrevistas precisam confirmar antes de fechar esse modelo
+### 9.9 O que as entrevistas precisam confirmar antes de fechar esse modelo
 
 - Quantos clientes ativos existem hoje? (define se uma pasta por cliente é gerenciável)
 - Algum cliente tem estrutura muito diferente dos outros? (define se o template de pasta precisa variações)
@@ -688,7 +848,7 @@ A view de cada área fica num **dashboard de operação** que filtra tarefas por
 
 ---
 
-## 9. Plano de Execução (Fases)
+## 10. Plano de Execução (Fases)
 
 ### Fase 0 — Entrevistas e alinhamento (semanas 1–2)
 - [ ] Entrevista jurídica com Fabricio
@@ -721,7 +881,7 @@ A view de cada área fica num **dashboard de operação** que filtra tarefas por
 - [ ] Configurar view de Workload com as alocações do Capacity
 
 ### Fase 4 — Automações e dashboards (semanas 9–12)
-- [ ] Configurar automações nativas do ClickUp (lista §6.1)
+- [ ] Configurar automações nativas do ClickUp (lista §7.1)
 - [ ] Criar Dashboard Executivo
 - [ ] Criar Dashboard Operacional
 - [ ] Criar Dashboard de Capacity
@@ -737,7 +897,7 @@ A view de cada área fica num **dashboard de operação** que filtra tarefas por
 
 ---
 
-## 10. Perguntas em Aberto
+## 11. Perguntas em Aberto
 
 Estas perguntas precisam ser respondidas nas entrevistas antes de finalizar o TO BE:
 
@@ -755,4 +915,4 @@ Estas perguntas precisam ser respondidas nas entrevistas antes de finalizar o TO
 ---
 
 *Documento em elaboração — Paolla Fonseca Consultoria*
-*Próximo passo: agendar entrevistas e preencher as perguntas em aberto (§10)*
+*Próximo passo: agendar entrevistas e preencher as perguntas em aberto (§11)*

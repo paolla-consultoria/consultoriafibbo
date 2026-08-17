@@ -965,10 +965,90 @@ Segue o **mesmo processo do Site** (H1) — da fase de briefing zero ao desenvol
 
 ### H5 · Criativos
 
-1. Realizar copy
-2. Realizar design
-3. Aprovação interna e externa
-4. Realizar publicação no Meta Ads (campanha de performance) — *Sistemas*
+> Criativos se dividem em três fluxos distintos com pontos de handoff para Performance e Sistemas. A copy de Linha Editorial é de Conteúdo (Camilly); a copy de Criativos para Anúncios é de Mariana — fluxos separados no ClickUp.
+
+---
+
+#### H5.1 · Linha Editorial (Redes Sociais)
+
+**Copy — Conteúdo (Camilly)**
+1. Gerar banco de ideias — via IA (Claude), por cliente
+2. Planejar linha editorial — selecionar posts, formatos (estático, carrossel), frequência
+3. Realizar ensaios com IA — imagens geradas *(clientes específicos: Brix, Mil Curvas)*
+4. Realizar copy — legendas, copy de carrossel, copy de criativo estático
+5. ~~Revisão da copy~~ — *(proposta de eliminar: etapa existe no fluxo atual, ninguém executa, atrasa design. Manter só aprovação no final)*
+
+**Design — Design (Samela / Laís)**
+6. Planejar design
+7. Desenvolver linha editorial completa — todos os posts do mês
+8. Montar apresentação no Canva — PDF para o cliente comentar
+
+**Aprovação**
+9. Liberar para aprovação interna — Design
+10. Aprovação interna — Danilo
+11. Liberar para aprovação externa — Danilo
+12. Realizar aprovação externa — Cliente
+13. Executar revisões
+    - Copy → Camilly → repete desde etapa 4
+    - Design → Samela/Laís → repete desde etapa 7
+
+**Publicação**
+14. Realizar publicação — Camilly *(via Meta / agendamento)*
+
+> ⚙ **Regra de task:** cada post ou e-mail é uma task separada — não uma task genérica "linha editorial". Exemplo: "E-mail 1 — Brasal", "E-mail 2 — Brasal". Evita cruzamento de feedback entre peças e facilita rastreamento de revisões.
+
+---
+
+#### H5.2 · Criativos para Anúncios *(fluxo diferente da Linha Editorial)*
+
+> **Atenção:** a copy de criativos para anúncios vem de Mariana, não de Camilly. Fluxo de entrada diferente.
+
+**Copy — Mariana**
+1. Realizar copy do criativo — Mariana
+
+**Design — Design (Laís)**
+2. Buscar referências visuais — Laís *(quando necessário)*
+3. Executar design do criativo — Laís
+
+**Aprovação**
+4. Liberar para aprovação interna — Danilo
+5. Aprovação interna — Danilo
+6. Liberar para aprovação externa — Danilo
+7. Realizar aprovação externa — Cliente
+8. Executar revisões
+    - Copy → Mariana
+    - Design → Laís
+9. Notificar Mateus (Performance) após aprovação final ← **handoff para H7 · Campanhas**
+
+> ⚙ **Predecessora:** o desenvolvimento de campanha só inicia após aprovação final do criativo. Se o cliente solicitar alteração de layout após início da campanha, uma nova task é criada — a task original é encerrada, o ciclo reinicia inteiro.
+
+---
+
+#### H5.3 · E-mail
+
+**Copy — Conteúdo (Camilly)**
+1. Planejar e realizar copy do e-mail — Camilly *(faz junto, sem separar planejamento)*
+
+**Design — Design (Samela)**
+2. Executar design do e-mail — Samela *(no Figma)*
+
+**Configuração — Sistemas (Raquel / Phelipe)**
+3. Configurar e-mail no Mautic — Raquel *(monta o e-mail, linka imagens, cria preview)*
+4. Incluir link de preview — Raquel
+
+**Aprovação**
+5. Aprovação interna — Camilly + Danilo
+6. Liberar para aprovação externa — Danilo
+7. Realizar aprovação externa — Cliente
+8. Executar revisões
+    - Copy → Camilly → Samela (design) → Raquel (atualiza Mautic) → repete
+    - Design → Samela → Raquel (atualiza Mautic) → repete
+
+**Disparo — Sistemas (Phelipe)**
+9. Validar funcionamento dos links do e-mail — Phelipe
+10. Programar disparo no Mautic — Phelipe *(prioriza início/fim de semana; respeita datas sazonais; data default: distribuição semanal interna salvo pedido explícito do cliente)*
+
+> ℹ **Briefing Zero:** definir no onboarding se o cliente tem datas fixas de disparo ou calendário de eventos sazonais. Reduz solicitações avulsas ao longo do contrato.
 
 ---
 
@@ -987,27 +1067,138 @@ Segue o **mesmo processo do Site** (H1) — da fase de briefing zero ao desenvol
 
 ### H7 · Performance & Relatórios
 
-**Relatórios de Performance**
-1. Validar envio do relatório semanal — *Danilo (Atendimento)*
+> Performance opera em dois eixos paralelos: **RECORRENTE** (aplica-se a todos os clientes, todos os meses) e **CAMPANHA MÍDIA PAGA** (por campanha ativa, seja mensal contínua ou sazonal). No ClickUp, cada campanha é uma task independente — o fluxo recorrente mensal não fica misturado com o ciclo de vida de cada campanha.
 
-> ℹ **Incluir no onboarding do cliente:**
-> 1. Validar com Fabrício as métricas do cliente
-> 2. Configurar automação de envio do relatório baseada nas métricas definidas
+---
+
+#### H7.1 · RECORRENTE — Todos os Clientes, Todo Mês
+
+> Este bloco executa para cada cliente com serviço de performance ativo, independentemente de qual campanha está rodando.
+
+**Configuração de Objetivos e Briefing Zero** *(apenas no onboarding)*
+1. Coletar objetivo do cliente — Performance (Guilherme/Mateus)
+   - O que o cliente solicita (ex.: 6 mil acessos, % de engajamento, faturamento)
+   - O que a equipe identifica como oportunidade
+2. Definir métricas de acompanhamento — Fabrício + Performance
+3. Configurar automação de relatório semanal (robô) — Sistemas (Phelipe)
+4. Registrar número do grupo de WhatsApp do cliente — Atendimento (Danilo)
+
+> ℹ **Briefing Zero obrigatório:** número do grupo de WhatsApp + métricas validadas com Fabrício. Sem esses dois dados a automação de relatório não sobe.
+
+---
+
+**Monitoramento Semanal**
+5. Acessar todas as contas de mídia ativa — Performance (Guilherme/Mateus)
+6. Checar se campanhas estão rodando (impressões > 0)
+7. Checar se orçamento está dentro do esperado (saldo > R$1)
+8. Identificar gaps não capturados pelos alertas automáticos (ex.: alto CPC com baixo volume, queda de conversão)
+9. Registrar no ClickUp quaisquer alertas acionados ou ações tomadas
+
+> **Frequência de monitoramento:**
+> - **1×/semana** → clientes com campanhas maduras e estáveis
+> - **2×/semana** → clientes com alto investimento ou campanhas recentes (menos de 3 dias)
 >
-> **Briefing Zero:** definir grupo de WhatsApp e métricas de performance para a automação de relatórios.
+> *Critério de "campanha nova": menos de 3 dias de veiculação. Requer atenção extra nos primeiros dias para identificar problemas de segmentação, criativos ou orçamento.*
 
-**Automação de Relatórios de Saldos (Internos)**
-2. Construir automação dos relatórios de saldos internos — *Sistemas & Automações*
+---
 
-> ↻ Mesmo processo aplica-se para relatórios mensais e trimestrais.
+**Relatório Semanal**
+10. Automação executa toda sexta — robô (Sistemas/Phelipe)
+    - Puxa dados de performance do período
+    - Gera texto de feedback da conta (via IA — requer revisão humana antes do envio)
+    - Envia no grupo de WhatsApp do cliente
+11. Analista de performance revisa a conta e complementa o relatório com análise qualitativa — Guilherme/Mateus
+12. Validar entrega do relatório ao cliente — Danilo (Atendimento)
 
-**Gestão de Campanhas**
-3. Validar checagem de saldos das campanhas
-4. Realizar ajustes de campanha
+> ⚙ **Lacuna conhecida do alerta automático:** a automação dispara quando saldo < R$1 ou impressões = 0. Não captura cenários de alto CPC com baixo volume. A revisão manual (etapa 8) cobre esse gap enquanto não há solução automatizada.
 
-> ⚠ **Pendente — fechar com Guilherme e Fabrício:**
-> - Definir separação de tarefas por ciclo de vida do cliente
-> - Distinguir fluxo de monitoramento do fluxo de melhoria contínua semanal (otimização de campanha)
+---
+
+**Checagem de Tracking** *(periodicidade a definir com Guilherme)*
+13. Verificar funcionamento dos pixels e tags de conversão — Performance
+14. Validar integridade dos dados no Google Analytics / Meta Business Suite
+15. Reportar inconsistência ao time de Sistemas se necessário
+
+---
+
+**Consolidação e Relatório Mensal**
+16. Consolidar dados de performance do mês — Performance (Guilherme/Mateus)
+17. Preparar relatório mensal com análise comparativa — Performance
+18. Realizar reunião de alinhamento de resultados com o cliente — Danilo + Performance
+    - Apresentar resultados vs. objetivos definidos no Briefing Zero
+    - Levantar ajustes de estratégia para o próximo mês
+    - Registrar acordos de escopo no ClickUp
+
+---
+
+#### H7.2 · CAMPANHA MÍDIA PAGA — Ciclo de Vida por Campanha
+
+> Cada campanha é uma task separada no ClickUp. Campanhas recorrentes mensais têm sua própria task que se renova; campanhas sazonais têm início e fim definidos. **Não misturar ciclo de campanha com o bloco recorrente mensal acima.**
+
+**1 · Plano de Mídia**
+1. Definir objetivo da campanha — Performance + Cliente
+2. Realizar plano de mídia — Performance (Guilherme/Mateus)
+   - Segmentação, canais, orçamento, datas
+3. Validar plano de mídia com o cliente — Danilo
+4. Solicitar criativos ao time de Design ← **predecessora H5.2 (Criativos para Anúncios)**
+
+**2 · Configuração de Campanha**
+5. Receber criativos aprovados de Laís (notificação pós-aprovação)
+6. Configurar campanha no Meta Ads / Google Ads — Performance (Mateus/Guilherme)
+   - Subir criativos, definir público, orçamento diário, período
+7. Revisar configuração final antes de ativar — Performance
+
+**3 · Validação de Campanha Nova** *(obrigatória nos primeiros 3 dias)*
+8. Verificar entrega e volume de impressões — Performance (2×/dia nos primeiros 3 dias)
+9. Verificar custo por resultado (dentro do esperado)
+10. Identificar problemas de segmentação, criativo ou orçamento
+11. Realizar ajustes iniciais se necessário
+
+**4 · Monitoramento Semanal** *(integrado ao H7.1, bloco 5–9)*
+> Após validação inicial, a campanha entra no ritmo semanal padrão (1× ou 2× conforme critério de maturidade).
+
+**5 · Consolidação Mensal** *(integrado ao H7.1, bloco 16–18)*
+
+**6 · Desativação de Campanha**
+12. Confirmar data de encerramento com o cliente — Danilo
+13. Desativar campanha no Meta Ads / Google Ads — Performance
+14. Registrar dados finais de performance para relatório de encerramento
+15. Encerrar task da campanha no ClickUp
+
+---
+
+#### H7.3 · Separação de Campanhas no ClickUp
+
+| Tipo | Configuração no ClickUp | Frequência | Responsável |
+|---|---|---|---|
+| **Recorrente mensal** | Task dentro da pasta do cliente, recorrência mensal ativa | Renovação automática todo mês | Performance |
+| **Sazonal / pontual** | Task com data de início e fim explícita, encerra com a campanha | Por campanha | Performance |
+| **Monitoramento semanal** | Subtask recorrente dentro da campanha ativa | Semanal | Performance |
+| **Relatório mensal** | Task separada com data fixa (ex.: todo dia 5) | Mensal | Performance + Danilo |
+
+---
+
+#### H7.4 · Sinergias com Sistemas & Automações
+
+| Automação | Responsável (build) | Consumidor | Periodicidade | Status |
+|---|---|---|---|---|
+| Relatório semanal via WhatsApp | Phelipe (Sistemas) | Guilherme/Mateus + Danilo | Toda sexta | ✅ Ativo |
+| Alerta de saldo crítico (< R$1 ou 0 impressões) | Lucas/Phelipe (Sistemas) | Guilherme/Mateus | A cada 4h | ✅ Ativo — gap conhecido (alto CPC) |
+| Geração de texto de feedback via IA | Phelipe (Sistemas) | Performance (revisa antes de enviar) | Semanal | ✅ Ativo — revisão humana obrigatória |
+| Extração de dados Meta API / Google Ads API | Sistemas | Relatório automatizado | Semanal/Mensal | 🔧 Em construção (substituiu Stract) |
+| Criação automática de tasks de monitoramento | Make (webhook) | Performance | Configurável | ⬜ Planejado |
+
+> ⚠ **Fibometrics:** plataforma de analytics operada exclusivamente por Fabrício. Não mapear no fluxo padrão de Performance por ora — Lucas confirmou que "nem ele sabe mapear ainda". Retomar quando Fabrício definir o processo.
+
+---
+
+#### H7.5 · Gaps em Aberto *(fechar com Guilherme + Fabrício)*
+
+1. **Monitoramento vs. Otimização** — distinguir task de "checar campanha" (monitoramento, recorrente) de "melhorar campanha" (otimização estratégica, demanda análise). São dois momentos diferentes com responsáveis que podem divergir.
+
+2. **Critério formal para 1× vs. 2×/semana** — hoje é subjetivo ("alto investimento"). Definir threshold (ex.: > R$5k/mês = 2×; campanha com < 7 dias = 2×) e registrar no Briefing Zero.
+
+3. **Cruzamento mídia paga × social (Brandformance)** — a pasta Brandformance existe no ClickUp mas não tem processo definido. Quando uma campanha de mídia paga usa conteúdo da linha editorial, quem é o dono da task? Requer alinhamento Performance + Conteúdo + Fabrício.
 
 ---
 
